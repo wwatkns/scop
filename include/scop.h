@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 17:23:49 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/11/30 16:55:23 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/11/30 18:00:13 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,23 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <fcntl.h>
-# include <sys/types.h>
-# include <sys/stat.h>
 
 // OpenGL librairies
 # include <GLFW/glfw3.h>
+// # include <OpenGL/gl3.h>
+// Modification line 146 in GLFW/glfw3.h: OpenGL/gl.h -> OpenGL/gl3.h
 
 # define OPENGL_VERSION "4.0"
 # define ABS(x) (x < 0 ? -x : x)
 # define PI 3.1415926
 # define BUFFER_SIZE 128
+
+typedef struct	s_shader
+{
+	GLuint	vertex;
+	GLuint	fragment;
+	GLuint	program;
+}				t_shader;
 
 typedef struct	s_win
 {
@@ -41,15 +47,18 @@ typedef struct	s_win
 
 typedef struct	s_env
 {
+	t_shader	shader;
 	t_win		win;
+	GLuint		VBO; // Vertex buffer object.
+	GLuint		VAO; // Vertex array object.
 }				t_env;
 
 // init.c
-void	glfw_init_env(void);
-void	glfw_init_win(t_env *e, int w, int h);
+void			glfw_init_env(void);
+void			glfw_init_win(t_env *e, int w, int h);
 
 // callback.c
-void	key_callback(GLFWwindow *window, int key, int sc, int action, int mode);
+void			key_callback(GLFWwindow *window, int key, int sc, int action, int mode);
 
 // shader.c
 const GLchar	*get_shader_source(char *filename);

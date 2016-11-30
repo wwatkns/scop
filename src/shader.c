@@ -6,12 +6,14 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 14:53:46 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/11/30 16:55:47 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/11/30 17:29:13 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
+/* Get the source code of the specified shader file.
+*/
 const GLchar	*get_shader_source(char *filename)
 {
 	int		fd;
@@ -32,12 +34,15 @@ const GLchar	*get_shader_source(char *filename)
 	return (source);
 }
 
+/*	Create an OpenGL shader from "filename" and with "shaderType" defining the
+	type of shader from GL_VERTEX_SHADER, GL_FRAGMENT_SHADER, ...
+*/
 GLuint	create_shader(char *filename, int shaderType)
 {
 	GLint			success;
 	GLchar			infoLog[512];
-	const GLchar	*shaderSource;
 	GLuint			shader;
+	const GLchar	*shaderSource;
 
 	shaderSource = get_shader_source(filename);
 	shader = glCreateShader(shaderType);
@@ -54,6 +59,9 @@ GLuint	create_shader(char *filename, int shaderType)
 	return (shader);
 }
 
+/*	Create a shader program compiled using a vertex shader and a
+	fragment shader.
+*/
 GLuint	create_shader_program(GLuint vertexShader, GLuint fragmentShader)
 {
 	GLint	success;
@@ -64,11 +72,6 @@ GLuint	create_shader_program(GLuint vertexShader, GLuint fragmentShader)
 	glAttachShader(shaderProgram, vertexShader);
 	glAttachShader(shaderProgram, fragmentShader);
 	glLinkProgram(shaderProgram);
-
-	glUseProgram(shaderProgram);
-	glDeleteShader(vertexShader);
-	glDeleteShader(fragmentShader);
-
 	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
 	if(!success)
 	{
@@ -76,5 +79,7 @@ GLuint	create_shader_program(GLuint vertexShader, GLuint fragmentShader)
 		printf("ERROR: shader program compilation failed:\n%s", infoLog);
 		exit(0);
 	}
+	glDeleteShader(vertexShader);
+	glDeleteShader(fragmentShader);
 	return (shaderProgram);
 }
