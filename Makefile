@@ -6,7 +6,7 @@
 #    By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/29 17:14:43 by wwatkins          #+#    #+#              #
-#    Updated: 2016/11/30 10:49:57 by wwatkins         ###   ########.fr        #
+#    Updated: 2016/11/30 14:30:42 by wwatkins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,16 +16,14 @@ CC = gcc
 SRC_PATH = ./src/
 OBJ_PATH = ./obj/
 LIB_PATH = ./lib/
-INC_PATH = ./include/ $(LIB_PATH)libft/include/ $(LIB_PATH)mlx/ $(LIB_PATH)glfw/include/
+INC_PATH = ./include/ $(LIB_PATH)libft/include/ $(LIB_PATH)glfw/include/
 
 GCC_FLGS = -Werror -Wextra -Wall -pedantic -g3
-MLX_FLGS = -framework OpenGL -framework Appkit
-GCC_LIBS = -lglfw3 -framework AppKit -framework OpenGL -Framework IOKit -framework CoreVideo
-# or "-framework Cocoa" instead of AppKit ?
+GCC_LIBS = -lglfw3 -framework AppKit -framework OpenGL -framework IOKit -framework CoreVideo
 
-SRC_NAME = main.c
+SRC_NAME = main.c init.c callback.c
 OBJ_NAME = $(SRC_NAME:.c=.o)
-LIB_NAME = libft mlx glfw/src
+LIB_NAME = libft glfw/src
 
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
@@ -36,8 +34,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	make -C $(LIB_PATH)libft -j
-	make -C $(LIB_PATH)mlx -j
-	$(CC) $(GCC_FLGS) $(LIB) -lft -lmlx $(INC) $(OBJ) $(MLX_FLGS) -o $(NAME)
+	$(CC) $(GCC_FLGS) $(LIB) -lft $(INC) $(OBJ) $(GCC_LIBS) -o $(NAME)
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	mkdir -p $(OBJ_PATH)
@@ -47,9 +44,8 @@ clean:
 	rm -fv $(OBJ)
 	rm -rf $(OBJ_PATH)
 
-fclean:
+fclean: clean
 	make -C $(LIB_PATH)libft fclean
-	make -C $(LIB_PATH)mlx clean
 	rm -fv $(NAME)
 
 re: fclean all
