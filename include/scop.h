@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 17:23:49 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/11/30 18:00:13 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/11/30 18:10:59 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,20 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-
-// OpenGL librairies
 # include <GLFW/glfw3.h>
-// # include <OpenGL/gl3.h>
 // Modification line 146 in GLFW/glfw3.h: OpenGL/gl.h -> OpenGL/gl3.h
 
 # define OPENGL_VERSION "4.0"
 # define ABS(x) (x < 0 ? -x : x)
 # define PI 3.1415926
 # define BUFFER_SIZE 128
+
+typedef struct	s_obj
+{
+	GLuint		VAO; //   Vertex array object.
+	GLuint		VBO; //  Vertex buffer object.
+	GLuint		EBO; // Element buffer object.
+}				t_obj;
 
 typedef struct	s_shader
 {
@@ -47,10 +51,9 @@ typedef struct	s_win
 
 typedef struct	s_env
 {
-	t_shader	shader;
 	t_win		win;
-	GLuint		VBO; // Vertex buffer object.
-	GLuint		VAO; // Vertex array object.
+	t_obj		object;
+	t_shader	shader;
 }				t_env;
 
 // init.c
