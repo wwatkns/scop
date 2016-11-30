@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 17:23:49 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/11/30 14:09:06 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/11/30 16:55:23 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <fcntl.h>
+# include <sys/types.h>
+# include <sys/stat.h>
 
 // OpenGL librairies
 # include <GLFW/glfw3.h>
@@ -27,6 +30,7 @@
 # define OPENGL_VERSION "4.0"
 # define ABS(x) (x < 0 ? -x : x)
 # define PI 3.1415926
+# define BUFFER_SIZE 128
 
 typedef struct	s_win
 {
@@ -46,5 +50,10 @@ void	glfw_init_win(t_env *e, int w, int h);
 
 // callback.c
 void	key_callback(GLFWwindow *window, int key, int sc, int action, int mode);
+
+// shader.c
+const GLchar	*get_shader_source(char *filename);
+GLuint			create_shader(char *filename, int shaderType);
+GLuint			create_shader_program(GLuint vertexShader, GLuint fragmentShader);
 
 #endif
