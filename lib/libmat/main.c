@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/01 17:01:52 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/01 18:16:20 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/01 19:18:56 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,16 @@ int	main(void)
 	t_mat	C;
 
 	A = matrix_create(4, 2, 1);
-	B = matrix_create(2, 3, 0.5);
+	B = matrix_create(3, 2, -0.5);
 	A.data[0][0] = 7;
 	A.data[1][0] = 2;
 	print_matrix(&A);
 
 	B.data[0][0] = 3.5;
-	B.data[0][0] = 4;
+	B.data[1][0] = 4;
 	print_matrix(&B);
 
+	B = matrix_transpose(&B);
 	C = matrix_mul(&A, &B);
 	print_matrix(&C);
 

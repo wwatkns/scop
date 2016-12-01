@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/01 16:31:22 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/01 18:26:44 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/01 19:04:50 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,7 @@ void	matrix_error(int exit, int error);
 t_mat	matrix_add(t_mat *A, t_mat *B);
 t_mat	matrix_sub(t_mat *A, t_mat *B);
 t_mat	matrix_mul(t_mat *A, t_mat *B);
+
+t_mat	matrix_transpose(t_mat *A);
 
 #endif

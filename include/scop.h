@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 17:23:49 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/01 14:27:33 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/01 16:30:30 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 # define SCOP_H
 
 // User librairies
-# include <libft.h>
+# include "libft.h"
+# include "libmat.h"
 
 // External librairies
 # include <math.h>
@@ -39,9 +40,9 @@ typedef struct	s_data
 
 typedef struct	s_buffer
 {
-	GLuint		VAO; //   Vertex array object.
-	GLuint		VBO; //  Vertex buffer object.
-	GLuint		EBO; // Element buffer object.
+	GLuint	VAO; //   Vertex array object.
+	GLuint	VBO; //  Vertex buffer object.
+	GLuint	EBO; // Element buffer object.
 }				t_buffer;
 
 typedef struct	s_shader
