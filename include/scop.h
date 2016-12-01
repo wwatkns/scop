@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 17:23:49 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/01 12:56:00 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/01 14:27:33 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # define ABS(x) (x < 0 ? -x : x)
 # define PI 3.1415926
 # define BUFFER_SIZE 128
+# define DEG2RAD(x) (x * (180.0 / PI))
+# define RAD2DEG(x) (x * (PI / 180.0))
 
 typedef struct	s_data
 {
@@ -72,7 +74,7 @@ void			key_callback(GLFWwindow *window, int key, int sc, int action, int mode);
 // shader.c
 const GLchar	*get_shader_source(char *filename);
 GLuint			create_shader(char *filename, int shaderType);
-GLuint			create_shader_program(GLuint vertexShader, GLuint fragmentShader);
+GLuint			create_shader_program(GLuint shader_vertex, GLuint shader_fragment);
 void			build_shader_program(t_env *env, char *v_file, char *f_file);
 
 // buffer.c

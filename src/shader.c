@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 14:53:46 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/01 12:56:25 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/01 13:01:22 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,26 +62,26 @@ GLuint	create_shader(char *filename, int shaderType)
 /*	Create a shader program compiled using a vertex shader and a
 	fragment shader.
 */
-GLuint	create_shader_program(GLuint vertexShader, GLuint fragmentShader)
+GLuint	create_shader_program(GLuint shader_vertex, GLuint shader_fragment)
 {
 	GLint	success;
 	GLchar	infoLog[512];
-	GLuint	shaderProgram;
+	GLuint	shader_program;
 
-	shaderProgram = glCreateProgram();
-	glAttachShader(shaderProgram, vertexShader);
-	glAttachShader(shaderProgram, fragmentShader);
-	glLinkProgram(shaderProgram);
-	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
+	shader_program = glCreateProgram();
+	glAttachShader(shader_program, shader_vertex);
+	glAttachShader(shader_program, shader_fragment);
+	glLinkProgram(shader_program);
+	glGetProgramiv(shader_program, GL_LINK_STATUS, &success);
 	if(!success)
 	{
-		glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
+		glGetProgramInfoLog(shader_program, 512, NULL, infoLog);
 		printf("ERROR: shader program compilation failed:\n%s", infoLog);
 		exit(0);
 	}
-	glDeleteShader(vertexShader);
-	glDeleteShader(fragmentShader);
-	return (shaderProgram);
+	glDeleteShader(shader_vertex);
+	glDeleteShader(shader_fragment);
+	return (shader_program);
 }
 
 /*	Build the shader program from a filename for the vertex glsl shader file
