@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 13:33:55 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/11/30 17:10:06 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/01 11:38:44 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /*	Initialize the OpenGL environment.
 */
-void	glfw_init_env(void)
+void	init_glfw_env(void)
 {
 	if (!glfwInit())
 		printf("ERROR: glfw initialization failed.");
@@ -27,13 +27,13 @@ void	glfw_init_env(void)
 
 /* Initialize the OpenGL window.
 */
-void	glfw_init_win(t_env *e, int w, int h)
+void	init_glfw_win(t_env *env, int w, int h)
 {
 	int width;
 	int height;
 
-	e->win.ptr = glfwCreateWindow(w, h, "test_OpenGL", NULL, NULL);
-	glfwMakeContextCurrent(e->win.ptr);
-	glfwGetFramebufferSize(e->win.ptr, &width, &height);
+	env->win.ptr = glfwCreateWindow(w, h, "test_OpenGL", NULL, NULL);
+	glfwMakeContextCurrent(env->win.ptr);
+	glfwGetFramebufferSize(env->win.ptr, &width, &height);
 	glViewport(0, 0, width, height);
 }

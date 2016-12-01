@@ -6,7 +6,7 @@
 #    By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/29 17:14:43 by wwatkins          #+#    #+#              #
-#    Updated: 2016/11/30 17:52:28 by wwatkins         ###   ########.fr        #
+#    Updated: 2016/12/01 12:16:05 by wwatkins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ INC_PATH = ./include/ $(LIB_PATH)libft/include/ $(LIB_PATH)glfw/include/
 GCC_FLGS = -Werror -Wextra -Wall -pedantic -g3
 GCC_LIBS = -lglfw3 -framework AppKit -framework OpenGL -framework IOKit -framework CoreVideo
 
-SRC_NAME = main.c init.c callback.c shader.c
+SRC_NAME = main.c init.c callback.c shader.c buffer.c utils.c
 OBJ_NAME = $(SRC_NAME:.c=.o)
 LIB_NAME = libft glfw/src
 

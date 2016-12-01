@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 17:23:49 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/11/30 18:10:59 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/01 12:56:00 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <libft.h>
 
 // External librairies
+# include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -28,17 +29,21 @@
 # define PI 3.1415926
 # define BUFFER_SIZE 128
 
-typedef struct	s_obj
+typedef struct	s_data
+{
+	unsigned int	size_vertices;
+	unsigned int	size_indices;
+}				t_data;
+
+typedef struct	s_buffer
 {
 	GLuint		VAO; //   Vertex array object.
 	GLuint		VBO; //  Vertex buffer object.
 	GLuint		EBO; // Element buffer object.
-}				t_obj;
+}				t_buffer;
 
 typedef struct	s_shader
 {
-	GLuint	vertex;
-	GLuint	fragment;
 	GLuint	program;
 }				t_shader;
 
@@ -52,13 +57,14 @@ typedef struct	s_win
 typedef struct	s_env
 {
 	t_win		win;
-	t_obj		object;
+	t_data		data;
+	t_buffer	buffer;
 	t_shader	shader;
 }				t_env;
 
 // init.c
-void			glfw_init_env(void);
-void			glfw_init_win(t_env *e, int w, int h);
+void			init_glfw_env(void);
+void			init_glfw_win(t_env *e, int w, int h);
 
 // callback.c
 void			key_callback(GLFWwindow *window, int key, int sc, int action, int mode);
@@ -67,5 +73,13 @@ void			key_callback(GLFWwindow *window, int key, int sc, int action, int mode);
 const GLchar	*get_shader_source(char *filename);
 GLuint			create_shader(char *filename, int shaderType);
 GLuint			create_shader_program(GLuint vertexShader, GLuint fragmentShader);
+void			build_shader_program(t_env *env, char *v_file, char *f_file);
+
+// buffer.c
+void			create_buffers(t_env *env, GLfloat *vertices, GLuint *indices, int mode);
+
+// utils.c
+void	clean_glfw(t_env *env);
+
 
 #endif

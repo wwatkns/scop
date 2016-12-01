@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 14:53:46 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/11/30 17:29:13 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/01 12:56:25 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,17 @@ GLuint	create_shader_program(GLuint vertexShader, GLuint fragmentShader)
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
 	return (shaderProgram);
+}
+
+/*	Build the shader program from a filename for the vertex glsl shader file
+	and one for the fragment glsl shader file.
+*/
+void	build_shader_program(t_env *env, char *v_file, char *f_file)
+{
+	GLuint	shader_vertex;
+	GLuint	shader_fragment;
+
+	shader_vertex = create_shader(v_file, GL_VERTEX_SHADER);
+	shader_fragment = create_shader(f_file, GL_FRAGMENT_SHADER);
+	env->shader.program = create_shader_program(shader_vertex, shader_fragment);
 }
