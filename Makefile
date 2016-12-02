@@ -6,7 +6,7 @@
 #    By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/29 17:14:43 by wwatkins          #+#    #+#              #
-#    Updated: 2016/12/01 12:16:05 by wwatkins         ###   ########.fr        #
+#    Updated: 2016/12/02 10:25:33 by wwatkins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,14 +16,15 @@ CC = gcc
 SRC_PATH = ./src/
 OBJ_PATH = ./obj/
 LIB_PATH = ./lib/
-INC_PATH = ./include/ $(LIB_PATH)libft/include/ $(LIB_PATH)glfw/include/
+INC_PATH = ./include/ $(LIB_PATH)libft/include/ $(LIB_PATH)glfw/include/ \
+			$(LIB_PATH)libmat/include/
 
 GCC_FLGS = -Werror -Wextra -Wall -pedantic -g3
 GCC_LIBS = -lglfw3 -framework AppKit -framework OpenGL -framework IOKit -framework CoreVideo
 
 SRC_NAME = main.c init.c callback.c shader.c buffer.c utils.c
 OBJ_NAME = $(SRC_NAME:.c=.o)
-LIB_NAME = libft glfw/src
+LIB_NAME = libft libmat glfw/src
 
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
@@ -34,7 +35,8 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	make -C $(LIB_PATH)libft -j
-	$(CC) $(GCC_FLGS) $(LIB) -lft $(INC) $(OBJ) $(GCC_LIBS) -o $(NAME)
+	make -C $(LIB_PATH)libmat -j
+	$(CC) $(GCC_FLGS) $(LIB) -lft -lmat $(INC) $(OBJ) $(GCC_LIBS) -o $(NAME)
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	mkdir -p $(OBJ_PATH)
@@ -46,6 +48,7 @@ clean:
 
 fclean: clean
 	make -C $(LIB_PATH)libft fclean
+	make -C $(LIB_PATH)libmat fclean
 	rm -fv $(NAME)
 
 re: fclean all

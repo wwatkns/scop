@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/01 19:05:14 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/01 19:15:04 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/02 11:12:05 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_mat	matrix_transpose(t_mat *A)
 	{
 		w = -1;
 		while (++w < A->size_w)
-			M.data[w][h] = A->data[h][w];
+			M.data[w * A->size_h + h] = A->data[h * A->size_w + w];
 	}
 	return (M);
 }

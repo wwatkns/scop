@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/01 16:31:22 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/01 19:04:50 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/02 10:34:29 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ typedef struct	s_mat
 {
 	int		size_h;
 	int		size_w;
-	double	**data;
+	float	*data;
 }				t_mat;
 
-t_mat	matrix_create(int size_h, int size_w, double val);
+t_mat	matrix_create(int size_h, int size_w, float val);
 void	matrix_delete(t_mat *mat);
 void	matrix_error(int exit, int error);
 

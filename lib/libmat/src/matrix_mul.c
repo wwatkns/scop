@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/01 17:38:04 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/01 19:15:27 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/02 11:10:16 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ t_mat	matrix_mul(t_mat *A, t_mat *B)
 			z = -1;
 			tmp = 0.0f;
 			while (++z < A->size_w)
-				tmp += A->data[h][z] * B->data[z][w];
-			M.data[h][w] = tmp;
+				tmp += A->data[h * A->size_w + z] * B->data[z * B->size_w + w];
+			M.data[h * B->size_w + w] = tmp;
 		}
 	}
 	return (M);
