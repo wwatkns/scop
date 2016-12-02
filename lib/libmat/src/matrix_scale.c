@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix_add.c                                       :+:      :+:    :+:   */
+/*   matrix_scale.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/01 17:13:11 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/02 12:48:59 by wwatkins         ###   ########.fr       */
+/*   Created: 2016/12/02 12:51:46 by wwatkins          #+#    #+#             */
+/*   Updated: 2016/12/02 12:53:02 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmat.h"
 
-t_mat	matrix_add(t_mat *A, t_mat *B)
+t_mat	matrix_scale(t_mat *M, float scalar)
 {
-	int		h;
-	int		w;
+	int	i;
 
-	if (A->size_h != B->size_h || A->size_w != B->size_w)
-		matrix_error(EXIT, MATRIX_ADDITION_ERR);
-	h = 0;
-	while (h < A->size_h * A->size_w)
-	{
-		w = -1;
-		while (++w < A->size_w)
-			A->data[h + w] += B->data[h + w];
-		h += A->size_w;
-	}
-	return (*A);
+	i = -1;
+	while (++i < M->size_h * M->size_w)
+		M->data[i] *= scalar;
+	return (*M);
 }

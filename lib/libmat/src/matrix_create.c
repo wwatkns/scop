@@ -6,48 +6,28 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/01 16:38:31 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/02 10:47:07 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/02 11:26:38 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmat.h"
 
-// t_mat	matrix_create(int size_h, int size_w, double val)
-// {
-// 	t_mat	mat;
-// 	int		w;
-// 	int		h;
-//
-// 	mat.size_h = size_h;
-// 	mat.size_w = size_w;
-// 	mat.data = (double**)malloc(sizeof(double*) * size_h);
-// 	h = -1;
-// 	while (++h < size_h)
-// 	{
-// 		mat.data[h] = (double*)malloc(sizeof(double) * size_w);
-// 		w = -1;
-// 		while (++w < size_w)
-// 			mat.data[h][w] = val;
-// 	}
-// 	return (mat);
-// }
-
 t_mat	matrix_create(int size_h, int size_w, float val)
 {
-	t_mat	mat;
+	t_mat	M;
 	int		w;
 	int		h;
 
-	mat.size_h = size_h;
-	mat.size_w = size_w;
-	mat.data = (float*)malloc(sizeof(float) * size_h * size_w);
+	M.size_h = size_h;
+	M.size_w = size_w;
+	M.data = (float*)malloc(sizeof(float) * size_h * size_w);
 	h = 0;
 	while (h < size_h * size_w)
 	{
 		w = -1;
 		while (++w < size_w)
-			mat.data[h + w] = val;
+			M.data[h + w] = val;
 		h += size_w;
 	}
-	return (mat);
+	return (M);
 }

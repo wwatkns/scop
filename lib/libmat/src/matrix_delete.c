@@ -6,14 +6,14 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/01 16:53:55 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/02 11:12:45 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/02 11:26:47 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmat.h"
 
-void	matrix_delete(t_mat *mat)
+void	matrix_delete(t_mat *M)
 {
-	free(mat->data);
-	mat->data = NULL;
+	free(M->data);
+	M->data = NULL;
 }

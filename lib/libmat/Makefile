@@ -6,7 +6,7 @@
 #    By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/01 16:43:17 by wwatkins          #+#    #+#              #
-#    Updated: 2016/12/01 16:43:48 by wwatkins         ###   ########.fr        #
+#    Updated: 2016/12/02 12:51:37 by wwatkins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,9 @@ NAME = libmat.a
 CC = gcc
 CFGLAGS = -Werror -Wextra -Wall
 
-SRC_NAME  = matrix_create.c
+SRC_NAME  = matrix_create.c matrix_copy.c matrix_delete.c matrix_error.c \
+			matrix_add.c matrix_sub.c matrix_mul.c matrix_transpose.c \
+			matrix_copy_data.c matrix_scale.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 

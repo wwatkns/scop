@@ -6,16 +6,14 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/01 17:38:04 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/02 11:10:16 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/02 12:29:20 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmat.h"
 
-/*	Matrix multiplication between A and B.
-	for this operation one dimension must be common between A and B, ex:
-	A(5, 3) and B(3, 8) is correct because the dimensions (5, 3) * (3, 8) = (5, 8)
-	A(8, 2) and B(8, 2) is incorrect.
+/*	Multiply the matrix A data with the matrix B.
+	They should have their "link" dimension in common such as (4, 2).(2, 6)
 */
 t_mat	matrix_mul(t_mat *A, t_mat *B)
 {
@@ -41,5 +39,7 @@ t_mat	matrix_mul(t_mat *A, t_mat *B)
 			M.data[h * B->size_w + w] = tmp;
 		}
 	}
-	return (M);
+	matrix_copy_data(A, &M);
+	matrix_delete(&M);
+	return (*A);
 }

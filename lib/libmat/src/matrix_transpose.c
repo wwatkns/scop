@@ -6,29 +6,33 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/01 19:05:14 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/02 11:12:05 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/02 12:47:03 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmat.h"
 
-t_mat	matrix_transpose(t_mat *A)
+t_mat	matrix_transpose(t_mat *M)
 {
 	int		h;
 	int		w;
 	int		z;
 	float	tmp;
-	t_mat	M;
+	t_mat	T;
 
-	if (A->size_h <= 0 || A->size_w <= 0)
+	if (M->size_h <= 0 || M->size_w <= 0)
 		matrix_error(EXIT, MATRIX_TRANSPOSE_ERR);
-	M = matrix_create(A->size_w, A->size_h, 0);
+	T = matrix_create(M->size_w, M->size_h, 0);
 	h = -1;
-	while (++h < A->size_h)
+	while (++h < M->size_h)
 	{
 		w = -1;
-		while (++w < A->size_w)
-			M.data[w * A->size_h + h] = A->data[h * A->size_w + w];
+		while (++w < M->size_w)
+			T.data[w * M->size_h + h] = M->data[h * M->size_w + w];
 	}
-	return (M);
+	M->size_h = T.size_h;
+	M->size_w = T.size_w;
+	matrix_copy_data(M, &T);
+	matrix_delete(&T);
+	return (*M);
 }
