@@ -6,7 +6,7 @@
 #    By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/29 17:14:43 by wwatkins          #+#    #+#              #
-#    Updated: 2016/12/02 10:25:33 by wwatkins         ###   ########.fr        #
+#    Updated: 2016/12/02 16:15:22 by wwatkins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ INC_PATH = ./include/ $(LIB_PATH)libft/include/ $(LIB_PATH)glfw/include/ \
 GCC_FLGS = -Werror -Wextra -Wall -pedantic -g3
 GCC_LIBS = -lglfw3 -framework AppKit -framework OpenGL -framework IOKit -framework CoreVideo
 
-SRC_NAME = main.c init.c callback.c shader.c buffer.c utils.c
+SRC_NAME = main.c init.c callback.c shader.c buffer.c utils.c \
+		   coordinate_system.c
 OBJ_NAME = $(SRC_NAME:.c=.o)
 LIB_NAME = libft libmat glfw/src
 

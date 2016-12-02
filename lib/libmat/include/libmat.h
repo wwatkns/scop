@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/01 16:31:22 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/02 13:41:52 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/02 19:22:12 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 
 # define PI 3.1415926
 
+# define IDENTITY 0
+
 typedef struct	s_mat
 {
 	int		size_h;
@@ -40,19 +42,22 @@ typedef struct	s_mat
 }				t_mat;
 
 t_mat	matrix_create(int size_h, int size_w, float val);
-void	matrix_delete(t_mat *M);
+void	matrix_delete(t_mat *m);
 
-t_mat	matrix_copy(t_mat *M);
-void	matrix_copy_data(t_mat *A, t_mat *B);
+void	matrix_set(t_mat *m, int type);
 
+t_mat	matrix_copy(t_mat *m);
+void	matrix_copy_data(t_mat *a, t_mat *b);
+
+void	matrix_print(t_mat *m);
 void	matrix_error(int exit, int error);
 
-t_mat	matrix_add(t_mat *A, t_mat *B);
-t_mat	matrix_sub(t_mat *A, t_mat *B);
-t_mat	matrix_mul(t_mat *A, t_mat *B);
-t_mat	matrix_scale(t_mat *M, float scalar);
+t_mat	matrix_add(t_mat *a, t_mat *b);
+t_mat	matrix_sub(t_mat *a, t_mat *b);
+t_mat	matrix_mul(t_mat *a, t_mat *b);
+void	matrix_scale(t_mat *m, float scalar);
 
-t_mat	matrix_transpose(t_mat *M);
-t_mat	matrix_rotate_axis(t_mat *M, int axis, float angle);
+t_mat	matrix_transpose(t_mat *m);
+t_mat	matrix_rotate_axis(t_mat *m, int axis, float angle);
 
 #endif

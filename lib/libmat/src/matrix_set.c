@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   matrix_set.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/01 17:01:52 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/02 18:45:06 by wwatkins         ###   ########.fr       */
+/*   Created: 2016/12/02 15:19:39 by wwatkins          #+#    #+#             */
+/*   Updated: 2016/12/02 15:24:46 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmat.h"
 
-int	main(void)
+void	matrix_set(t_mat *m, int type)
 {
-	t_mat	A;
-	t_mat	B;
-	t_mat	C;
+	int	h;
+	int	w;
 
-	A = matrix_create(4, 4, 0);
-	matrix_set(&A, IDENTITY);
-	A.data[1] = 42;
-	matrix_print(&A);
-	A = matrix_transpose(&A);
-	matrix_print(&A);
-
-	return (0);
+	if (type == IDENTITY && m->size_w == m->size_h)
+	{
+		h = 0;
+		w = 0;
+		while (h < m->size_h * m->size_w)
+		{
+			m->data[h + w] = 1;
+			w++;
+			h += m->size_w;
+		}
+	}
 }

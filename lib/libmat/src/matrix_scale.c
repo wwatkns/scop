@@ -6,18 +6,17 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/02 12:51:46 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/02 12:53:02 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/02 16:11:05 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmat.h"
 
-t_mat	matrix_scale(t_mat *M, float scalar)
+void	matrix_scale(t_mat *m, float scalar)
 {
 	int	i;
 
 	i = -1;
-	while (++i < M->size_h * M->size_w)
-		M->data[i] *= scalar;
-	return (*M);
+	while (++i < m->size_h * m->size_w)
+		m->data[i] *= scalar;
 }

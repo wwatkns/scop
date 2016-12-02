@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 17:23:49 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/01 16:30:30 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/02 19:07:50 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,9 @@ typedef struct	s_shader
 typedef struct	s_win
 {
 	GLFWwindow	*ptr;
-	int			width;
-	int			height;
+	int			w;
+	int			h;
+	float		ratio;
 }				t_win;
 
 typedef struct	s_env
@@ -82,7 +83,11 @@ void			build_shader_program(t_env *env, char *v_file, char *f_file);
 void			create_buffers(t_env *env, GLfloat *vertices, GLuint *indices, int mode);
 
 // utils.c
-void	clean_glfw(t_env *env);
+void			clean_glfw(t_env *env);
 
+// coordinate_system
+t_mat	create_model_matrix(void);
+t_mat	create_view_matrix(void);
+t_mat	create_projection_matrix(float fov, float ratio, float near, float far);
 
 #endif
