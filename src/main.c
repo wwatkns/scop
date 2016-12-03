@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 17:20:21 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/02 19:23:54 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/03 12:56:42 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,16 @@ int		main(void)
 	/*	Prevents stange bugs */
 	glBindVertexArray(0);
 
-	t_mat	modelMat;
-	t_mat	viewMat;
-	t_mat	projectionMat;
+	float m_mat[16];
+	float v_mat[16];
+	float p_mat[16];
 
-	modelMat = create_model_matrix();
-	viewMat = create_view_matrix();
-	projectionMat = create_projection_matrix(60, env.win.ratio, 0.01f, 100.0f);
-	matrix_print(&modelMat);
-	matrix_print(&viewMat);
-	matrix_print(&projectionMat);
+	set_model_matrix(m_mat);
+	set_view_matrix(v_mat);
+	set_projection_matrix(p_mat, 60, env.win.ratio, 0.01f, 100.0f);
+	mat4_print(m_mat);
+	mat4_print(v_mat);
+	mat4_print(p_mat);
 
 	glEnable(GL_DEPTH_TEST);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -86,22 +86,23 @@ int		main(void)
 		GLint	viewLoc = glGetUniformLocation(env.shader.program, "view");
 		GLint	projectionLoc = glGetUniformLocation(env.shader.program, "projection");
 
-		modelMat = matrix_rotate_axis(&modelMat, AXIS_X, sin(timeValue * 0.2));
-		// modelMat = matrix_rotate_axis(&modelMat, AXIS_Y, sin(timeValue * 0.2));
-		// modelMat = matrix_rotate_axis(&modelMat, AXIS_Z, sin(timeValue * 0.2));
-		// matrix_print(&modelMat);
+		// m_mat[11] = (sin(timeValue) / 2) - 0.5;
 
-		modelMat.data[3] = sin(timeValue) / 2;
-		modelMat.data[7] = cos(timeValue) / 2;
-		modelMat.data[11] = (sin(timeValue) / 2) - 0.5;
-		// matrix_print(&modelMat);
+		translate(m_mat, sin(timeValue) * 0.001, 0, 0);
+		// scale(m_mat, -0.01, -0.01, -0.01);
+		// scale(m_mat, -0.01, -0.01, -0.01);
+		// mat4_rotate_axis(m_mat, AXIS_X, sin(timeValue * 0.2));
+		// mat4_rotate_axis(m_mat, AXIS_Y, sin(timeValue * 0.2));
+		// mat4_rotate_axis(m_mat, AXIS_Z, sin(timeValue * 0.2));
+		mat4_print(m_mat);
+
 		/*	Activate the shader program */
 		glUseProgram(env.shader.program);
 		/*	Updates the uniform variable in the fragment shader */
 		glUniform4f(vertexColorLocation, R, G, B, 1.0f);
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, modelMat.data);
-		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, viewMat.data);
-		glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, projectionMat.data);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, m_mat);
+		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, v_mat);
+		glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, p_mat);
 
 		/*	Draw our rectangle using the shader program */
 		glBindVertexArray(env.buffer.VAO);

@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 17:23:49 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/02 19:07:50 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/03 12:33:48 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 // User librairies
 # include "libft.h"
-# include "libmat.h"
+# include "libmat4.h"
 
 // External librairies
 # include <math.h>
@@ -85,9 +85,14 @@ void			create_buffers(t_env *env, GLfloat *vertices, GLuint *indices, int mode);
 // utils.c
 void			clean_glfw(t_env *env);
 
-// coordinate_system
-t_mat	create_model_matrix(void);
-t_mat	create_view_matrix(void);
-t_mat	create_projection_matrix(float fov, float ratio, float near, float far);
+// coordinate_system.c
+void			set_model_matrix(float *m);
+void			set_view_matrix(float *m);
+void			set_projection_matrix(float *m, float fov, float ratio, float near, float far);
+
+// movement.c
+void			translate(float *m, float x, float y, float z);
+void			rotate(float *m, float x, float y, float z);
+void			scale(float *m, float x, float y, float z);
 
 #endif
