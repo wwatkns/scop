@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/03 12:23:16 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/05 16:53:48 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/05 18:55:19 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,19 +55,8 @@ void	rotate(t_mat4 *m, t_vec3 v)
 // 	r.m[8] = v.x * v.z * (1 - c) - v.y * s;
 // 	r.m[9] = v.y * v.z * (1 - c) + v.x * s;
 // 	r.m[10]= v.z * v.z + (1 - v.z * v.z) * c;
-// 	mat4_copy(m, &r);
-// 	// mat4_mul(m, &r);
-// }
-
-
-// void	rotate(t_mat4 *m, float x, float y, float z)
-// {
-// 	if (x != 0)
-// 		mat4_rotate_axis(m, AXIS_X, x);
-// 	if (y != 0)
-// 		mat4_rotate_axis(m, AXIS_Y, y);
-// 	if (z != 0)
-// 		mat4_rotate_axis(m, AXIS_Z, z);
+// 	// mat4_copy(m, r);
+// 	*m = mat4_mul(*m, r);
 // }
 
 t_mat4	look_at(t_vec4 *from, t_vec4 *to)

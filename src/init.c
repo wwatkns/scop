@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 13:33:55 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/01 11:38:44 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/05 19:22:19 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,38 @@ void	init_glfw_env(void)
 
 /* Initialize the OpenGL window.
 */
-void	init_glfw_win(t_env *env, int w, int h)
+void	init_glfw_win(t_env *env)
 {
 	int width;
 	int height;
 
-	env->win.ptr = glfwCreateWindow(w, h, "test_OpenGL", NULL, NULL);
+	env->win.ptr = glfwCreateWindow(env->win.w, env->win.h, "scop", NULL, NULL);
 	glfwMakeContextCurrent(env->win.ptr);
 	glfwGetFramebufferSize(env->win.ptr, &width, &height);
 	glViewport(0, 0, width, height);
+
+	glfwSetInputMode(env->win.ptr, GLFW_STICKY_KEYS, 1);
+}
+
+void	init_cam(t_env *env)
+{
+	t_vec4	up;
+
+	env->cam.pos = (t_vec4) {0, 0, 3, 1};
+	env->cam.target = (t_vec4) {0, 0, 0, 1};
+	env->cam.dir = vec3_sub(env->cam.pos, env->cam.target);
+	up = (t_vec4) {0, 1, 0, 0};
+	env->cam.right = vec3_normalize(vec3_cross(up, env->cam.dir));
+	env->cam.up = vec3_cross(env->cam.dir, env->cam.right);
+}
+
+void	init(t_env *env)
+{
+	env->cam.fov = 90;
+	env->win.w = WINDOW_W;
+	env->win.h = WINDOW_H;
+	env->win.ratio = env->win.w / (float)env->win.h;
+	init_glfw_env();
+	init_glfw_win(env);
+	init_cam(env);
 }

@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 17:23:49 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/05 16:31:13 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/05 19:19:38 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,27 @@
 # define DEG2RAD(x) (x * (180.0 / PI))
 # define RAD2DEG(x) (x * (PI / 180.0))
 
+# define WINDOW_W 1440
+# define WINDOW_H 1280
+
+typedef struct	s_cam
+{
+	t_vec4	pos;
+	t_vec4	dir;
+	t_vec4	target;
+	t_vec4	up;
+	t_vec4	right;
+	float	fov;
+}				t_cam;
+
+typedef struct	s_key
+{
+	short	code[512];
+}				t_key;
+
+/*	Model matrices for the following operations:
+**	translation, scale, rotation.
+*/
 typedef struct	s_model
 {
 	t_mat4	translation;
@@ -39,6 +60,8 @@ typedef struct	s_model
 	t_mat4	rotation;
 }				t_model;
 
+/*	Simulation matrices (model, view, projection).
+*/
 typedef struct	s_sim
 {
 	t_mat4	model;
@@ -62,6 +85,9 @@ typedef struct	s_buffer
 typedef struct	s_shader
 {
 	GLuint	program;
+	GLint	mloc;
+	GLint	vloc;
+	GLint	ploc;
 }				t_shader;
 
 typedef struct	s_win
@@ -75,19 +101,25 @@ typedef struct	s_win
 typedef struct	s_env
 {
 	t_win		win;
+	t_sim		sim;
+	t_cam		cam;
+	t_key		key;
 	t_data		data;
 	t_buffer	buffer;
 	t_shader	shader;
-	t_sim		sim;
 	t_model		model;
 }				t_env;
 
 // init.c
 void			init_glfw_env(void);
-void			init_glfw_win(t_env *e, int w, int h);
+void			init_glfw_win(t_env *env);
+void			init_cam(t_env *env);
+void			init(t_env *env);
 
 // callback.c
-void			key_callback(GLFWwindow *window, int key, int sc, int action, int mode);
+// void			key_callback(GLFWwindow *window, int key, int sc, int action, int mode);
+void			key_reset(t_env *env);
+void			key_pressed(t_env *env);
 
 // shader.c
 const GLchar	*get_shader_source(char *filename);

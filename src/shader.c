@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 14:53:46 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/01 13:01:22 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/05 17:07:20 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ const GLchar	*get_shader_source(char *filename)
 }
 
 /*	Create an OpenGL shader from "filename" and with "shaderType" defining the
-	type of shader from GL_VERTEX_SHADER, GL_FRAGMENT_SHADER, ...
+**	type of shader from GL_VERTEX_SHADER, GL_FRAGMENT_SHADER, ...
 */
 GLuint	create_shader(char *filename, int shaderType)
 {
@@ -60,7 +60,7 @@ GLuint	create_shader(char *filename, int shaderType)
 }
 
 /*	Create a shader program compiled using a vertex shader and a
-	fragment shader.
+**	fragment shader.
 */
 GLuint	create_shader_program(GLuint shader_vertex, GLuint shader_fragment)
 {
@@ -85,7 +85,7 @@ GLuint	create_shader_program(GLuint shader_vertex, GLuint shader_fragment)
 }
 
 /*	Build the shader program from a filename for the vertex glsl shader file
-	and one for the fragment glsl shader file.
+**	and one for the fragment glsl shader file.
 */
 void	build_shader_program(t_env *env, char *v_file, char *f_file)
 {
@@ -95,4 +95,7 @@ void	build_shader_program(t_env *env, char *v_file, char *f_file)
 	shader_vertex = create_shader(v_file, GL_VERTEX_SHADER);
 	shader_fragment = create_shader(f_file, GL_FRAGMENT_SHADER);
 	env->shader.program = create_shader_program(shader_vertex, shader_fragment);
+	env->shader.mloc = glGetUniformLocation(env->shader.program, "model");
+	env->shader.vloc = glGetUniformLocation(env->shader.program, "view");
+	env->shader.ploc = glGetUniformLocation(env->shader.program, "projection");
 }

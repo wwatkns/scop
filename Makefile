@@ -6,7 +6,7 @@
 #    By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/29 17:14:43 by wwatkins          #+#    #+#              #
-#    Updated: 2016/12/05 12:27:05 by wwatkins         ###   ########.fr        #
+#    Updated: 2016/12/05 18:57:04 by wwatkins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ GCC_LIBS = -lglfw3 -framework AppKit -framework OpenGL -framework IOKit -framewo
 
 SRC_NAME = main.c init.c callback.c shader.c buffer.c utils.c \
 		   coordinate_system.c movement.c
+
 OBJ_NAME = $(SRC_NAME:.c=.o)
 LIB_NAME = libft libmat4 glfw/src
 

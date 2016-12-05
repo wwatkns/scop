@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 17:20:21 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/05 16:55:26 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/05 19:35:07 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 GLfloat cubeVertices[] = {
 	/* Positions */        /* Colors */
-	-0.1f,  0.1f, 0.0f,  0.0f, 1.0f, 0.0f, // 0
-	 0.1f,  0.1f, 0.0f,  0.0f, 0.0f, 1.0f, // 1
-	 0.1f, -0.1f, 0.0f,  1.0f, 0.0f, 0.0f, // 2
-	-0.1f, -0.1f, 0.0f,  0.0f, 1.0f, 1.0f, // 3
-	-0.1f,  0.1f, 0.2f,  0.0f, 1.0f, 0.0f, // 4
-	 0.1f,  0.1f, 0.2f,  0.0f, 0.0f, 1.0f, // 5
-	 0.1f, -0.1f, 0.2f,  1.0f, 0.0f, 0.0f, // 6
-	-0.1f, -0.1f, 0.2f,  0.0f, 1.0f, 1.0f  // 7
+	-0.1f,  0.1f, -0.1f,  0.0f, 1.0f, 0.0f, // 0
+	 0.1f,  0.1f, -0.1f,  0.0f, 0.0f, 1.0f, // 1
+	 0.1f, -0.1f, -0.1f,  1.0f, 0.0f, 0.0f, // 2
+	-0.1f, -0.1f, -0.1f,  0.0f, 1.0f, 1.0f, // 3
+	-0.1f,  0.1f,  0.1f,  0.0f, 1.0f, 0.0f, // 4
+	 0.1f,  0.1f,  0.1f,  0.0f, 0.0f, 1.0f, // 5
+	 0.1f, -0.1f,  0.1f,  1.0f, 0.0f, 0.0f, // 6
+	-0.1f, -0.1f,  0.1f,  0.0f, 1.0f, 1.0f  // 7
 };
 
 GLuint	cubeIndices[] = {
@@ -34,14 +34,10 @@ int		main(void)
 {
 	t_env	env;
 
-	env.win.w = 1440;
-	env.win.h = 1280;
-	env.win.ratio = env.win.w / (float)env.win.h;
-	init_glfw_env();
-	init_glfw_win(&env, env.win.w, env.win.h);
+	init(&env);
 
 	/*	Create the key callback */
-	glfwSetKeyCallback(env.win.ptr, key_callback);
+	// glfwSetKeyCallback(env.win.ptr, key_callback);
 	/*	Build and compile our shader program */
 	build_shader_program(&env, "../shader/vertex.glsl", "../shader/fragment.glsl");
 	/*	Create the objects buffers for the differents objects
@@ -54,7 +50,11 @@ int		main(void)
 
 	set_model_matrix(&env.sim.model);
 	set_view_matrix(&env.sim.view);
-	set_projection_matrix(&env.sim.projection, 70, env.win.ratio, 0.01f, 100.0f);
+	set_projection_matrix(&env.sim.projection, env.cam.fov, env.win.ratio, 0.001f, 100.0f);
+
+	mat4_set(&env.model.rotation, IDENTITY);
+	mat4_set(&env.model.translation, IDENTITY);
+	mat4_set(&env.model.scale, IDENTITY);
 
 	glEnable(GL_DEPTH_TEST);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -62,7 +62,7 @@ int		main(void)
 	{
 		/*	Events handler */
 		glfwPollEvents();
-
+		key_pressed(&env);
 		/*	Clears the color buffer */
 		glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -74,47 +74,35 @@ int		main(void)
 		GLfloat	R = (cos(epoch) / 2) + 0.5;
 		GLint	vertexColorLocation = glGetUniformLocation(env.shader.program, "mod_color");
 
-
-		GLint	modelLoc = glGetUniformLocation(env.shader.program, "model");
-		GLint	viewLoc = glGetUniformLocation(env.shader.program, "view");
-		GLint	projectionLoc = glGetUniformLocation(env.shader.program, "projection");
-
-		mat4_set(&env.model.translation, IDENTITY);
-		mat4_set(&env.model.scale, IDENTITY);
-		mat4_set(&env.model.rotation, IDENTITY);
-
-		// rotate(&env.model.rotation, cos(epoch) * 180, (t_vec3) { 1, 0, 0 });
 		// rotate(&env.model.rotation, cos(epoch) * 180, (t_vec3) { 0, 1, 0 });
 		// rotate(&env.model.rotation, cos(epoch) * 180, (t_vec3) { 0, 0, 1 });
+		// rotate(&env.model.rotation, cos(epoch) * 180, (t_vec3) { 0, 1, 0 });
 
-		rotate(&env.model.rotation, (t_vec3) {
-			cos(epoch) * 180,
-			sin(epoch) * 180,
-			0
-		});
-		translate(&env.model.translation, (t_vec3) {
-			sin(epoch) * 0.1,
-			cos(epoch) * 0.1,
-			(sin(epoch) + cos(epoch * 2)) * 0.1,
-		});
-		scale(&env.model.scale, (t_vec3) {
-			sin(epoch * 2) * 0.4 + 1.2,
-			sin(epoch * 2) * 0.4 + 1.2,
-			sin(epoch * 2) * 0.4 + 1.2
-		});
+		// rotate(&env.model.rotation, (t_vec3) { cos(epoch) * 180, sin(epoch) * 180, 0 });
+		// rotate(&env.model.rotation, (t_vec3) { 0, sin(epoch) * 180, 0 });
+
+		// translate(&env.model.translation, (t_vec3) {
+		// 	sin(epoch) * 0.1,
+		// 	cos(epoch) * 0.1,
+		// 	(sin(epoch) + cos(epoch * 2)) * 0.1,
+		// });
+		// scale(&env.model.scale, (t_vec3) {
+		// 	sin(epoch * 2) * 0.4 + 1.2,
+		// 	sin(epoch * 2) * 0.4 + 1.2,
+		// 	sin(epoch * 2) * 0.4 + 1.2
+		// });
 
 		env.sim.model = mat4_mul(env.model.rotation,
 						mat4_mul(env.model.translation, env.model.scale));
-
 		mat4_print(&env.sim.model);
 
 		/*	Activate the shader program */
 		glUseProgram(env.shader.program);
 		/*	Updates the uniform variable in the fragment shader */
 		glUniform4f(vertexColorLocation, R, G, B, 1.0f);
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, env.sim.model.m);
-		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, env.sim.view.m);
-		glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, env.sim.projection.m);
+		glUniformMatrix4fv(env.shader.mloc, 1, GL_FALSE, env.sim.model.m);
+		glUniformMatrix4fv(env.shader.vloc, 1, GL_FALSE, env.sim.view.m);
+		glUniformMatrix4fv(env.shader.ploc, 1, GL_FALSE, env.sim.projection.m);
 
 		/*	Draw our rectangle using the shader program */
 		glBindVertexArray(env.buffer.VAO);
