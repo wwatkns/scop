@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mat4_set.c                                         :+:      :+:    :+:   */
+/*   vec3_fmul.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/01 16:38:31 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/05 10:54:22 by wwatkins         ###   ########.fr       */
+/*   Created: 2016/12/05 11:09:52 by wwatkins          #+#    #+#             */
+/*   Updated: 2016/12/05 12:32:17 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmat4.h"
 
-void	mat4_set(t_mat4 *m, float f)
+t_vec4 	vec3_fmul(t_vec4 v, float f)
 {
-	int		i;
+	int	i;
 
 	i = -1;
-	while (++i < 16)
-	{
-		if (f == IDENTITY)
-			m->m[i] = (i % 5 == 0 ? 1 : 0);
-		else
-			m->m[i] = f;
-	}
+	while (++i < 3)
+		v.v[i] *= f;
+	return (v);
 }

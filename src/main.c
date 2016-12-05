@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 17:20:21 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/03 12:56:42 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/05 13:17:26 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,16 @@ int		main(void)
 	/*	Prevents stange bugs */
 	glBindVertexArray(0);
 
-	float m_mat[16];
-	float v_mat[16];
-	float p_mat[16];
+	t_mat4	m_mat;
+	t_mat4	v_mat;
+	t_mat4	p_mat;
 
-	set_model_matrix(m_mat);
-	set_view_matrix(v_mat);
-	set_projection_matrix(p_mat, 60, env.win.ratio, 0.01f, 100.0f);
-	mat4_print(m_mat);
-	mat4_print(v_mat);
-	mat4_print(p_mat);
+	set_model_matrix(&m_mat);
+	set_view_matrix(&v_mat);
+	set_projection_matrix(&p_mat, 60, env.win.ratio, 0.01f, 100.0f);
+	mat4_print(&m_mat);
+	mat4_print(&v_mat);
+	mat4_print(&p_mat);
 
 	glEnable(GL_DEPTH_TEST);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -75,10 +75,10 @@ int		main(void)
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		/*	Uniform test for color changing of the fragment shader */
-		GLfloat	timeValue = glfwGetTime();
-		GLfloat B = (sin(timeValue) / 2) + 0.5;
-		GLfloat G = (sin(timeValue - 1.5) / 2) + 0.5;
-		GLfloat	R = (cos(timeValue) / 2) + 0.5;
+		GLfloat	epoch = glfwGetTime();
+		GLfloat B = (sin(epoch) / 2) + 0.5;
+		GLfloat G = (sin(epoch - 1.5) / 2) + 0.5;
+		GLfloat	R = (cos(epoch) / 2) + 0.5;
 		GLint	vertexColorLocation = glGetUniformLocation(env.shader.program, "mod_color");
 
 
@@ -86,23 +86,30 @@ int		main(void)
 		GLint	viewLoc = glGetUniformLocation(env.shader.program, "view");
 		GLint	projectionLoc = glGetUniformLocation(env.shader.program, "projection");
 
-		// m_mat[11] = (sin(timeValue) / 2) - 0.5;
+		translate(&m_mat, (t_vec3) {
+				sin(epoch) * 0.1 - m_mat.tx,
+				cos(epoch) * 0.1 - m_mat.ty,
+				(sin(epoch) + cos(epoch * 2)) * 0.1 - m_mat.tz
+		});
+		scale(&m_mat, (t_vec3) {
+				sin(epoch * 2) * 0.8 + 1.2 - m_mat.sx,
+				sin(epoch * 2) * 0.8 + 1.2 - m_mat.sy,
+				sin(epoch * 2) * 0.8 + 1.2 - m_mat.sz,
+		});
+		// rotate(&m_mat, (t_vec3))
 
-		translate(m_mat, sin(timeValue) * 0.001, 0, 0);
-		// scale(m_mat, -0.01, -0.01, -0.01);
-		// scale(m_mat, -0.01, -0.01, -0.01);
-		// mat4_rotate_axis(m_mat, AXIS_X, sin(timeValue * 0.2));
-		// mat4_rotate_axis(m_mat, AXIS_Y, sin(timeValue * 0.2));
-		// mat4_rotate_axis(m_mat, AXIS_Z, sin(timeValue * 0.2));
-		mat4_print(m_mat);
+		// mat4_rotate_axis(m_mat, AXIS_X, sin(epoch * 0.2));
+		// mat4_rotate_axis(m_mat, AXIS_Y, sin(epoch * 0.2));
+		// mat4_rotate_axis(m_mat, AXIS_Z, sin(epoch * 0.2));
+		mat4_print(&m_mat);
 
 		/*	Activate the shader program */
 		glUseProgram(env.shader.program);
 		/*	Updates the uniform variable in the fragment shader */
 		glUniform4f(vertexColorLocation, R, G, B, 1.0f);
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, m_mat);
-		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, v_mat);
-		glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, p_mat);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, m_mat.m);
+		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, v_mat.m);
+		glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, p_mat.m);
 
 		/*	Draw our rectangle using the shader program */
 		glBindVertexArray(env.buffer.VAO);

@@ -6,24 +6,24 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/01 19:05:14 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/03 11:31:57 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/05 10:45:00 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmat4.h"
 
-void	mat4_transpose(float *m)
+void	mat4_transpose(t_mat4 *m)
 {
 	int		h;
 	int		w;
-	float	t[16];
+	t_mat4	t;
 
 	h = -1;
 	while (++h < 4)
 	{
 		w = -1;
 		while (++w < 4)
-			t[w * 4 + h] = m[h * 4 + w];
+			t.m[w * 4 + h] = m->m[h * 4 + w];
 	}
-	mat4_copy(m, t);
+	mat4_copy(m, &t);
 }

@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mat4_translate.c                                   :+:      :+:    :+:   */
+/*   vec3_set.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/02 15:56:39 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/03 11:59:40 by wwatkins         ###   ########.fr       */
+/*   Created: 2016/12/05 10:52:37 by wwatkins          #+#    #+#             */
+/*   Updated: 2016/12/05 12:36:07 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmat4.h"
 
-// t_mat	matrix_translation(t_mat &a, t_mat &b)
-// {
-// 	return (*a);
-// }
+void	vec3_set(t_vec4 *v, float f)
+{
+	int		i;
+
+	i = -1;
+	while (++i < 3)
+		v->v[i] = f;
+	v->w = 1;
+}

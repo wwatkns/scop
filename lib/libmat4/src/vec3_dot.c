@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mat4_set.c                                         :+:      :+:    :+:   */
+/*   vec3_dot.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/01 16:38:31 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/05 10:54:22 by wwatkins         ###   ########.fr       */
+/*   Created: 2016/12/05 10:56:01 by wwatkins          #+#    #+#             */
+/*   Updated: 2016/12/05 12:32:05 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmat4.h"
 
-void	mat4_set(t_mat4 *m, float f)
+float	vec3_dot(t_vec4 a, t_vec4 b)
 {
-	int		i;
-
-	i = -1;
-	while (++i < 16)
-	{
-		if (f == IDENTITY)
-			m->m[i] = (i % 5 == 0 ? 1 : 0);
-		else
-			m->m[i] = f;
-	}
+	return (a.x * b.x + a.y * b.y + a.z * b.z);
 }

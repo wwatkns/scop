@@ -6,13 +6,13 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/02 15:09:58 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/03 11:17:14 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/05 10:42:14 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmat4.h"
 
-void	mat4_print(float *m)
+void	mat4_print(t_mat4 *m)
 {
 	int h;
 	int	w;
@@ -23,7 +23,7 @@ void	mat4_print(float *m)
 		printf("[ ");
 		w = -1;
 		while (++w < 4)
-			printf("%.3f ", m[h + w]);
+			printf("%.3f ", m->m[h + w]);
 		printf("]\n");
 		h += 4;
 	}

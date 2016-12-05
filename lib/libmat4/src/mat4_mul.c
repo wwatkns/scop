@@ -6,18 +6,18 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/03 11:38:31 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/03 11:48:34 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/05 10:44:31 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmat4.h"
 
-void	mat4_mul(float *a, float *b)
+void	mat4_mul(t_mat4 *a, t_mat4 *b)
 {
 	int		h;
 	int		w;
 	int		z;
-	float	m[16];
+	t_mat4	m;
 
 	h = -1;
 	while (++h < 4)
@@ -26,10 +26,10 @@ void	mat4_mul(float *a, float *b)
 		while (++w < 4)
 		{
 			z = -1;
-			m[h * 4 + w] = 0;
+			m.m[h * 4 + w] = 0;
 			while (++z < 4)
-				m[h * 4 + w] += a[h * 4 + z] * b[z * 4 + w];
+				m.m[h * 4 + w] += a->m[h * 4 + z] * b->m[z * 4 + w];
 		}
 	}
-	mat4_copy(a, m);
+	mat4_copy(a, &m);
 }

@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 17:23:49 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/03 12:33:48 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/05 13:02:17 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,15 @@ void			create_buffers(t_env *env, GLfloat *vertices, GLuint *indices, int mode);
 void			clean_glfw(t_env *env);
 
 // coordinate_system.c
-void			set_model_matrix(float *m);
-void			set_view_matrix(float *m);
-void			set_projection_matrix(float *m, float fov, float ratio, float near, float far);
+void			set_model_matrix(t_mat4 *m);
+void			set_view_matrix(t_mat4 *m);
+void			set_projection_matrix(t_mat4 *m, float fov, float ratio, float near, float far);
 
 // movement.c
-void			translate(float *m, float x, float y, float z);
-void			rotate(float *m, float x, float y, float z);
-void			scale(float *m, float x, float y, float z);
+void			translate(t_mat4 *m, t_vec3 v);
+void			rotate(t_mat4 *m, t_vec3 v);
+void			scale(t_mat4 *m, t_vec3 v);
+
+t_mat4	look_at(t_vec4 *from, t_vec4 *to);
 
 #endif

@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mat4_set.c                                         :+:      :+:    :+:   */
+/*   vec3_cross.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/01 16:38:31 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/05 10:54:22 by wwatkins         ###   ########.fr       */
+/*   Created: 2016/12/05 11:29:20 by wwatkins          #+#    #+#             */
+/*   Updated: 2016/12/05 12:35:52 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmat4.h"
 
-void	mat4_set(t_mat4 *m, float f)
+t_vec4 	vec3_cross(t_vec4 a, t_vec4 b)
 {
-	int		i;
+	t_vec4 	tmp;
 
-	i = -1;
-	while (++i < 16)
-	{
-		if (f == IDENTITY)
-			m->m[i] = (i % 5 == 0 ? 1 : 0);
-		else
-			m->m[i] = f;
-	}
+	tmp.x = a.y * b.z - a.z * b.y;
+	tmp.y = a.z * b.x - a.x * b.z;
+	tmp.z = a.x * b.y - a.y * b.x;
+	tmp.w = a.w;
+	vec4_copy(&a, &tmp);
+	return (a);
 }

@@ -1,27 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mat4_set.c                                         :+:      :+:    :+:   */
+/*   mat4_vec4mul.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/01 16:38:31 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/05 10:54:22 by wwatkins         ###   ########.fr       */
+/*   Created: 2016/12/05 11:52:13 by wwatkins          #+#    #+#             */
+/*   Updated: 2016/12/05 12:35:23 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmat4.h"
 
-void	mat4_set(t_mat4 *m, float f)
+void	mat4_vec4mul(t_vec4 *a, t_mat4 *b)
 {
-	int		i;
+	int		h;
+	int		w;
+	int		z;
+	t_vec4 	tmp;
 
-	i = -1;
-	while (++i < 16)
+	h = -1;
+	while (++h < 1)
 	{
-		if (f == IDENTITY)
-			m->m[i] = (i % 5 == 0 ? 1 : 0);
-		else
-			m->m[i] = f;
+		w = -1;
+		while (++w < 4)
+		{
+			z = -1;
+			tmp.v[h * 4 + w] = 0;
+			while (++z < 4)
+				tmp.v[h * 4 + w] += a->v[h * 4 + z] * b->m[z * 4 + w];
+		}
 	}
+	vec4_copy(a, &tmp);
 }

@@ -6,17 +6,17 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/01 17:36:54 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/03 11:34:14 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/05 10:42:47 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmat4.h"
 
-void	mat4_sub(float *a, float *b)
+void	mat4_sub(t_mat4 *a, t_mat4 *b)
 {
 	int		i;
 
 	i = -1;
 	while (++i < 16)
-		a[i] -= b[i];
+		a->m[i] -= b->m[i];
 }

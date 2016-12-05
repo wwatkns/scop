@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mat4_set.c                                         :+:      :+:    :+:   */
+/*   vec4_copy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/01 16:38:31 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/05 10:54:22 by wwatkins         ###   ########.fr       */
+/*   Created: 2016/12/05 11:31:38 by wwatkins          #+#    #+#             */
+/*   Updated: 2016/12/05 12:34:39 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmat4.h"
 
-void	mat4_set(t_mat4 *m, float f)
+t_vec4 	vec4_copy(t_vec4 *a, t_vec4 *b)
 {
-	int		i;
+	int	i;
 
 	i = -1;
-	while (++i < 16)
-	{
-		if (f == IDENTITY)
-			m->m[i] = (i % 5 == 0 ? 1 : 0);
-		else
-			m->m[i] = f;
-	}
+	while (++i < 4)
+		a->v[i] = b->v[i];
+	return (*a);
 }
