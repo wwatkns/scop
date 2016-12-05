@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/03 10:54:24 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/05 13:00:04 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/05 16:49:00 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,10 @@
 
 typedef struct	s_mat4
 {
-	union {
-		struct {
+	union
+	{
+		struct
+		{
 			float sx, m1, m2, tx,
 				  m4, sy, m6, ty,
 				  m8, m9, sz, tz,
@@ -45,15 +47,12 @@ typedef struct	s_mat4
 	};
 }				t_mat4;
 
-// typedef struct	s_mat4
-// {
-// 	float	m[16];
-// }				t_mat4;
-
 typedef struct	s_vec4
 {
-	union {
-		struct {
+	union
+	{
+		struct
+		{
 			float x, y, z, w;
 		};
 		float	v[4];
@@ -62,8 +61,10 @@ typedef struct	s_vec4
 
 typedef struct	s_vec3
 {
-	union {
-		struct {
+	union
+	{
+		struct
+		{
 			float x, y, z;
 		};
 		float	v[3];
@@ -74,18 +75,17 @@ typedef struct	s_vec3
 */
 void	mat4_set(t_mat4 *m, float f);
 
-void	mat4_copy(t_mat4 *a, t_mat4 *b);
+t_mat4	mat4_copy(t_mat4 *a, t_mat4 b);
 
 void	mat4_print(t_mat4 *m);
-void	mat4_error(int exit, int error);
 
-void	mat4_add(t_mat4 *a, t_mat4 *b);
-void	mat4_sub(t_mat4 *a, t_mat4 *b);
-void	mat4_mul(t_mat4 *a, t_mat4 *b);
-void	mat4_scale(t_mat4 *m, float f);
+t_mat4	mat4_add(t_mat4 a, t_mat4 b);
+t_mat4	mat4_sub(t_mat4 a, t_mat4 b);
+t_mat4	mat4_mul(t_mat4 a, t_mat4 b);
+t_mat4	mat4_scale(t_mat4 m, float f);
 
-void	mat4_transpose(t_mat4 *m);
-void	mat4_rotate_axis(t_mat4 *m, int axis, float angle);
+t_mat4	mat4_transpose(t_mat4 *m);
+t_mat4	mat4_rotate_axis(t_mat4 m, int axis, float angle);
 
 /* Common
 */

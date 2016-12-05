@@ -6,17 +6,18 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/01 17:13:11 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/05 10:41:39 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/05 16:42:31 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmat4.h"
 
-void	mat4_add(t_mat4 *a, t_mat4 *b)
+t_mat4	mat4_add(t_mat4 a, t_mat4 b)
 {
 	int		i;
 
 	i = -1;
 	while (++i < 16)
-		a->m[i] += b->m[i];
+		a.m[i] += b.m[i];
+	return (a);
 }

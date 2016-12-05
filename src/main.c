@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 17:20:21 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/05 13:17:26 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/05 16:55:26 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ int		main(void)
 {
 	t_env	env;
 
-	env.win.w = 1280;
-	env.win.h = 960;
+	env.win.w = 1440;
+	env.win.h = 1280;
 	env.win.ratio = env.win.w / (float)env.win.h;
 	init_glfw_env();
 	init_glfw_win(&env, env.win.w, env.win.h);
@@ -52,16 +52,9 @@ int		main(void)
 	/*	Prevents stange bugs */
 	glBindVertexArray(0);
 
-	t_mat4	m_mat;
-	t_mat4	v_mat;
-	t_mat4	p_mat;
-
-	set_model_matrix(&m_mat);
-	set_view_matrix(&v_mat);
-	set_projection_matrix(&p_mat, 60, env.win.ratio, 0.01f, 100.0f);
-	mat4_print(&m_mat);
-	mat4_print(&v_mat);
-	mat4_print(&p_mat);
+	set_model_matrix(&env.sim.model);
+	set_view_matrix(&env.sim.view);
+	set_projection_matrix(&env.sim.projection, 70, env.win.ratio, 0.01f, 100.0f);
 
 	glEnable(GL_DEPTH_TEST);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -86,30 +79,42 @@ int		main(void)
 		GLint	viewLoc = glGetUniformLocation(env.shader.program, "view");
 		GLint	projectionLoc = glGetUniformLocation(env.shader.program, "projection");
 
-		translate(&m_mat, (t_vec3) {
-				sin(epoch) * 0.1 - m_mat.tx,
-				cos(epoch) * 0.1 - m_mat.ty,
-				(sin(epoch) + cos(epoch * 2)) * 0.1 - m_mat.tz
-		});
-		scale(&m_mat, (t_vec3) {
-				sin(epoch * 2) * 0.8 + 1.2 - m_mat.sx,
-				sin(epoch * 2) * 0.8 + 1.2 - m_mat.sy,
-				sin(epoch * 2) * 0.8 + 1.2 - m_mat.sz,
-		});
-		// rotate(&m_mat, (t_vec3))
+		mat4_set(&env.model.translation, IDENTITY);
+		mat4_set(&env.model.scale, IDENTITY);
+		mat4_set(&env.model.rotation, IDENTITY);
 
-		// mat4_rotate_axis(m_mat, AXIS_X, sin(epoch * 0.2));
-		// mat4_rotate_axis(m_mat, AXIS_Y, sin(epoch * 0.2));
-		// mat4_rotate_axis(m_mat, AXIS_Z, sin(epoch * 0.2));
-		mat4_print(&m_mat);
+		// rotate(&env.model.rotation, cos(epoch) * 180, (t_vec3) { 1, 0, 0 });
+		// rotate(&env.model.rotation, cos(epoch) * 180, (t_vec3) { 0, 1, 0 });
+		// rotate(&env.model.rotation, cos(epoch) * 180, (t_vec3) { 0, 0, 1 });
+
+		rotate(&env.model.rotation, (t_vec3) {
+			cos(epoch) * 180,
+			sin(epoch) * 180,
+			0
+		});
+		translate(&env.model.translation, (t_vec3) {
+			sin(epoch) * 0.1,
+			cos(epoch) * 0.1,
+			(sin(epoch) + cos(epoch * 2)) * 0.1,
+		});
+		scale(&env.model.scale, (t_vec3) {
+			sin(epoch * 2) * 0.4 + 1.2,
+			sin(epoch * 2) * 0.4 + 1.2,
+			sin(epoch * 2) * 0.4 + 1.2
+		});
+
+		env.sim.model = mat4_mul(env.model.rotation,
+						mat4_mul(env.model.translation, env.model.scale));
+
+		mat4_print(&env.sim.model);
 
 		/*	Activate the shader program */
 		glUseProgram(env.shader.program);
 		/*	Updates the uniform variable in the fragment shader */
 		glUniform4f(vertexColorLocation, R, G, B, 1.0f);
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, m_mat.m);
-		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, v_mat.m);
-		glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, p_mat.m);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, env.sim.model.m);
+		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, env.sim.view.m);
+		glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, env.sim.projection.m);
 
 		/*	Draw our rectangle using the shader program */
 		glBindVertexArray(env.buffer.VAO);

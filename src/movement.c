@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/03 12:23:16 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/05 13:18:03 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/05 16:53:48 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,40 @@ void	scale(t_mat4 *m, t_vec3 v)
 	m->sy += v.y;
 	m->sz += v.z;
 }
-//
-// void	rotate(t_mat4 *m, float theta, t_vec4 axis)
+
+void	rotate(t_mat4 *m, t_vec3 v)
+{
+	if (v.x != 0.0)
+		*m = mat4_rotate_axis(*m, AXIS_X, v.x);
+	if (v.y != 0.0)
+		*m = mat4_rotate_axis(*m, AXIS_Y, v.y);
+	if (v.z != 0.0)
+		*m = mat4_rotate_axis(*m, AXIS_Z, v.z);
+}
+
+// void	rotate(t_mat4 *m, float theta, t_vec3 v)
 // {
+// 	float	c;
+// 	float	s;
+// 	t_mat4	r;
 //
+// 	mat4_set(&r, IDENTITY);
+// 	theta *= (M_PI / 180);
+// 	c = cos(theta);
+// 	s = sin(theta);
+// 	r.m[0] = v.x * v.x + (1 - v.x * v.x) * c;
+// 	r.m[1] = v.x * v.y * (1 - c) - v.z * s;
+// 	r.m[2] = v.x * v.z * (1 - c) + v.y * s;
+// 	r.m[4] = v.x * v.y * (1 - c) + v.z * s;
+// 	r.m[5] = v.y * v.y + (1 - v.y * v.y) * c;
+// 	r.m[6] = v.y * v.z * (1 - c) - v.x * s;
+// 	r.m[8] = v.x * v.z * (1 - c) - v.y * s;
+// 	r.m[9] = v.y * v.z * (1 - c) + v.x * s;
+// 	r.m[10]= v.z * v.z + (1 - v.z * v.z) * c;
+// 	mat4_copy(m, &r);
+// 	// mat4_mul(m, &r);
 // }
+
 
 // void	rotate(t_mat4 *m, float x, float y, float z)
 // {

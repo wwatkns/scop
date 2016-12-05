@@ -10,6 +10,7 @@ out vec4		fragment_color;
 
 void	main()
 {
+	// gl_Position = projection * transpose(view) * transpose(model) * vec4(position, 1.0f);
 	gl_Position = projection * transpose(view) * transpose(model) * vec4(position, 1.0f);
 	fragment_color = vec4(color, 1.0f);
 }

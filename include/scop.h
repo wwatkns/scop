@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 17:23:49 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/05 13:02:17 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/05 16:31:13 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,20 @@
 # define BUFFER_SIZE 128
 # define DEG2RAD(x) (x * (180.0 / PI))
 # define RAD2DEG(x) (x * (PI / 180.0))
+
+typedef struct	s_model
+{
+	t_mat4	translation;
+	t_mat4	scale;
+	t_mat4	rotation;
+}				t_model;
+
+typedef struct	s_sim
+{
+	t_mat4	model;
+	t_mat4	view;
+	t_mat4	projection;
+}				t_sim;
 
 typedef struct	s_data
 {
@@ -64,6 +78,8 @@ typedef struct	s_env
 	t_data		data;
 	t_buffer	buffer;
 	t_shader	shader;
+	t_sim		sim;
+	t_model		model;
 }				t_env;
 
 // init.c
@@ -92,9 +108,10 @@ void			set_projection_matrix(t_mat4 *m, float fov, float ratio, float near, floa
 
 // movement.c
 void			translate(t_mat4 *m, t_vec3 v);
+// void			rotate(t_mat4 *m, float theta, t_vec3 v);
 void			rotate(t_mat4 *m, t_vec3 v);
 void			scale(t_mat4 *m, t_vec3 v);
 
-t_mat4	look_at(t_vec4 *from, t_vec4 *to);
+t_mat4			look_at(t_vec4 *from, t_vec4 *to);
 
 #endif

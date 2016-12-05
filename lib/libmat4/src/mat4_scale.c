@@ -6,17 +6,18 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/02 12:51:46 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/05 10:42:34 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/05 16:45:18 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmat4.h"
 
-void	mat4_scale(t_mat4 *m, float f)
+t_mat4	mat4_scale(t_mat4 m, float f)
 {
 	int	i;
 
 	i = -1;
 	while (++i < 16)
-		m->m[i] *= f;
+		m.m[i] *= f;
+	return (m);
 }

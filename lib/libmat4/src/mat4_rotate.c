@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/02 12:55:01 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/05 10:43:58 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/05 16:53:29 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	get_axis_z_rotation_matrix(t_mat4 *m, float theta)
 	m->m[5] = cos(theta);
 }
 
-void	mat4_rotate_axis(t_mat4 *m, int axis, float angle)
+t_mat4	mat4_rotate_axis(t_mat4 m, int axis, float angle)
 {
 	t_mat4	r;
 	float	theta;
@@ -44,10 +44,19 @@ void	mat4_rotate_axis(t_mat4 *m, int axis, float angle)
 	mat4_set(&r, IDENTITY);
 	theta = angle * (M_PI / 180);
 	if (axis == AXIS_X)
+	{
 		get_axis_x_rotation_matrix(&r, theta);
+		m = mat4_mul(m, r);
+	}
 	else if (axis == AXIS_Y)
+	{
 		get_axis_y_rotation_matrix(&r, theta);
+		m = mat4_mul(m, r);
+	}
 	else if (axis == AXIS_Z)
+	{
 		get_axis_z_rotation_matrix(&r, theta);
-	mat4_mul(m, &r);
+		m = mat4_mul(m, r);
+	}
+	return (m);
 }
