@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 12:13:45 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/06 14:39:22 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/06 16:38:26 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,31 +66,29 @@ void	camera_move_inertia(t_env *env, float inertia, int mode)
 
 void	camera_rotate(t_env *env)
 {
-	// if (env->key.code[GLFW_KEY_X])
-		// env->cam.dir = vec3_rotate(env->cam.dir, (t_vec4){1, 0, 0, 1});
-	// if (env->key.code[GLFW_KEY_C])
-		// env->cam.dir = vec3_rotate(env->cam.dir, (t_vec4){-1, 0, 0, 1});
 }
 
 void	camera_look_at_target(t_env *env)
 {
+	t_vec4	tmp;
 	t_mat4	view;
 
+	tmp = env->cam.up;
 	env->cam.front = vec3_normalize(vec3_sub(env->cam.pos, env->cam.target));
 	env->cam.right = vec3_normalize(vec3_cross(env->cam.up, env->cam.front));
-	env->cam.up = vec3_cross(env->cam.front, env->cam.right);
+	tmp = vec3_cross(env->cam.front, env->cam.right);
 	mat4_set(&view, IDENTITY);
 	view.m[0] = env->cam.right.x;
-	view.m[1] = env->cam.up.x;
+	view.m[1] = tmp.x;
 	view.m[2] = env->cam.front.x;
 	view.m[4] = env->cam.right.y;
-	view.m[5] = env->cam.up.y;
+	view.m[5] = tmp.y;
 	view.m[6] = env->cam.front.y;
 	view.m[8] = env->cam.right.z;
-	view.m[9] = env->cam.up.z;
+	view.m[9] = tmp.z;
 	view.m[10]= env->cam.front.z;
 	view.m[12]= -vec3_dot(env->cam.right, env->cam.pos);
-	view.m[13]= -vec3_dot(env->cam.up, env->cam.pos);
+	view.m[13]= -vec3_dot(tmp, env->cam.pos);
 	view.m[14]= -vec3_dot(env->cam.front, env->cam.pos);
 	env->sim.view = view;
 }

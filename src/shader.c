@@ -6,14 +6,12 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 14:53:46 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/05 17:07:20 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/06 16:32:14 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
-/* Get the source code of the specified shader file.
-*/
 const GLchar	*get_shader_source(char *filename)
 {
 	int		fd;
@@ -34,9 +32,6 @@ const GLchar	*get_shader_source(char *filename)
 	return (source);
 }
 
-/*	Create an OpenGL shader from "filename" and with "shaderType" defining the
-**	type of shader from GL_VERTEX_SHADER, GL_FRAGMENT_SHADER, ...
-*/
 GLuint	create_shader(char *filename, int shaderType)
 {
 	GLint			success;
@@ -59,9 +54,6 @@ GLuint	create_shader(char *filename, int shaderType)
 	return (shader);
 }
 
-/*	Create a shader program compiled using a vertex shader and a
-**	fragment shader.
-*/
 GLuint	create_shader_program(GLuint shader_vertex, GLuint shader_fragment)
 {
 	GLint	success;
@@ -84,9 +76,6 @@ GLuint	create_shader_program(GLuint shader_vertex, GLuint shader_fragment)
 	return (shader_program);
 }
 
-/*	Build the shader program from a filename for the vertex glsl shader file
-**	and one for the fragment glsl shader file.
-*/
 void	build_shader_program(t_env *env, char *v_file, char *f_file)
 {
 	GLuint	shader_vertex;

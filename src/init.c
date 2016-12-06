@@ -6,14 +6,12 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 13:33:55 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/06 14:07:41 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/06 16:30:01 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
-/*	Initialize the OpenGL environment.
-*/
 void	init_glfw_env(void)
 {
 	if (!glfwInit())
@@ -25,8 +23,6 @@ void	init_glfw_env(void)
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 }
 
-/* Initialize the OpenGL window.
-*/
 void	init_glfw_win(t_env *env)
 {
 	int width;
@@ -36,8 +32,17 @@ void	init_glfw_win(t_env *env)
 	glfwMakeContextCurrent(env->win.ptr);
 	glfwGetFramebufferSize(env->win.ptr, &width, &height);
 	glViewport(0, 0, width, height);
-
 	glfwSetInputMode(env->win.ptr, GLFW_STICKY_KEYS, 1);
+}
+
+void	init_matrices(t_env *env)
+{
+	set_model_matrix(&env->sim.model);
+	set_view_matrix(&env->sim.view);
+	set_projection_matrix(&env->sim.projection, env->cam.fov, env->win.ratio, 0.001f, 100.0f);
+	mat4_set(&env->model.rotation, IDENTITY);
+	mat4_set(&env->model.translation, IDENTITY);
+	mat4_set(&env->model.scale, IDENTITY);
 }
 
 void	init_cam(t_env *env)
@@ -51,16 +56,17 @@ void	init_cam(t_env *env)
 	env->cam.right = vec3_normalize(vec3_cross(up, env->cam.dir));
 	env->cam.up = vec3_cross(env->cam.dir, env->cam.right);
 	env->cam.front = vec3_cross(env->cam.up, env->cam.right);
-	env->cam.inertia = (t_vec4) {0, 0, 0, 1}; // TMP
+	env->cam.inertia = (t_vec4) {0, 0, 0, 1};
 }
 
 void	init(t_env *env)
 {
-	env->cam.fov = 90;
+	env->cam.fov = CAMERA_FOV;
 	env->win.w = WINDOW_W;
 	env->win.h = WINDOW_H;
 	env->win.ratio = env->win.w / (float)env->win.h;
 	init_glfw_env();
 	init_glfw_win(env);
 	init_cam(env);
+	init_matrices(env);
 }
