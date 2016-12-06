@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/03 12:23:16 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/06 13:51:22 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/06 14:41:11 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,23 +67,18 @@ t_mat4	look_at(t_env *env, t_vec4 *from, t_vec4 *to, t_vec4 *up)
 	env->cam.front = vec3_normalize(vec3_sub(*from, *to));
 	env->cam.right = vec3_normalize(vec3_cross(*up, env->cam.front));
 	y = vec3_cross(env->cam.front, env->cam.right);
-	// env->cam.up = vec3_cross(env->cam.front, x);
 	mat4_set(&view, IDENTITY);
 	view.m[0] = env->cam.right.x;
 	view.m[1] = y.x;
-	// view.m[1] = env->cam.up.x;
 	view.m[2] = env->cam.front.x;
 	view.m[4] = env->cam.right.y;
 	view.m[5] = y.y;
-	// view.m[5] = env->cam.up.y;
 	view.m[6] = env->cam.front.y;
 	view.m[8] = env->cam.right.z;
 	view.m[9] = y.z;
-	// view.m[9] = env->cam.up.z;
 	view.m[10]= env->cam.front.z;
 	view.m[12]= -vec3_dot(env->cam.right, *from);
 	view.m[13]= -vec3_dot(y, *from);
-	// view.m[13]= -vec3_dot(env->cam.up, *from);
 	view.m[14]= -vec3_dot(env->cam.front, *from);
 	return (view);
 }

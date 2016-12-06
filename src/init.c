@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 13:33:55 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/06 12:10:05 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/06 14:07:41 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	init_cam(t_env *env)
 	env->cam.right = vec3_normalize(vec3_cross(up, env->cam.dir));
 	env->cam.up = vec3_cross(env->cam.dir, env->cam.right);
 	env->cam.front = vec3_cross(env->cam.up, env->cam.right);
+	env->cam.inertia = (t_vec4) {0, 0, 0, 1}; // TMP
 }
 
 void	init(t_env *env)

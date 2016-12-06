@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 17:23:49 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/06 13:10:32 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/06 14:29:25 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@
 
 # define MAX_KEYS 348
 
+# define FREE 0
+# define LOCKED 1
+
 typedef struct	s_cam
 {
 	t_vec4	pos;
@@ -55,6 +58,7 @@ typedef struct	s_cam
 	t_vec4	right;
 	t_vec4	front;
 	float	fov;
+	t_vec4	inertia;
 }				t_cam;
 
 typedef struct	s_key
@@ -159,8 +163,10 @@ t_mat4			look_at(t_env *env, t_vec4 *from, t_vec4 *to, t_vec4 *up);
 
 // camera.c
 void			camera_zoom(t_env *env);
-void			camera_move(t_env *env);
+void			camera_move(t_env *env, int mode);
+void			camera_move_inertia(t_env *env, float inertia, int mode);
 void			camera_rotate(t_env *env);
+void			camera_look_at_target(t_env *env);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 17:20:21 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/06 13:54:03 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/06 14:34:56 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,25 +74,9 @@ int		main(void)
 		GLfloat	R = (cos(epoch) / 2) + 0.5;
 		GLint	vertexColorLocation = glGetUniformLocation(env.shader.program, "mod_color");
 
-		// rotate(&env.model.rotation, cos(epoch) * 180, (t_vec3) { 0, 1, 0 });
-		// rotate(&env.model.rotation, cos(epoch) * 180, (t_vec3) { 0, 0, 1 });
-		// rotate(&env.model.rotation, cos(epoch) * 180, (t_vec3) { 0, 1, 0 });
-
-		// rotate(&env.model.rotation, (t_vec3) { cos(epoch) * 180, sin(epoch) * 180, 0 });
-		// rotate(&env.model.rotation, (t_vec3) { 0, sin(epoch) * 180, 0 });
-		rotate(&env.model.rotation, (t_vec3) { 0, 0.5, 0 });
-		scale(&env.model.scale, (t_vec3) { sin(epoch)*0.01, sin(epoch)*0.01, sin(epoch)*0.01 });
-
-		// translate(&env.model.translation, (t_vec3) {
-		// 	sin(epoch) * 0.1,
-		// 	cos(epoch) * 0.1,
-		// 	(sin(epoch) + cos(epoch * 2)) * 0.1,
-		// });
-		// scale(&env.model.scale, (t_vec3) {
-		// 	sin(epoch * 2) * 0.4 + 1.2,
-		// 	sin(epoch * 2) * 0.4 + 1.2,
-		// 	sin(epoch * 2) * 0.4 + 1.2
-		// });
+		// rotate(&env.model.rotation, (t_vec3) { 0, 0.5, 0.5 });
+		// scale(&env.model.scale, (t_vec3) { sin(epoch)*0.01, sin(epoch)*0.01, sin(epoch)*0.01 });
+		// translate(&env.model.translation, (t_vec3) { sin(epoch) * 0.1, cos(epoch) * 0.1, (sin(epoch) + cos(epoch * 2)) * 0.1});
 
 		/*	Camera simulation */
 		env.sim.view = look_at(&env, &env.cam.pos, &env.cam.target, &env.cam.up);

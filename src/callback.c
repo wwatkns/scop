@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 13:51:00 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/06 13:00:22 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/06 14:36:44 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,14 @@ void	key_pressed(t_env *env)
 
 void	key_action(t_env *env)
 {
-	if (env->key.code[TF] || env->key.code[TB] || env->key.code[TL] ||
-		env->key.code[TR] || env->key.code[TU] || env->key.code[TD])
-		camera_move(env);
+	// if (env->key.code[TF] || env->key.code[TB] || env->key.code[TL] ||
+		// env->key.code[TR] || env->key.code[TU] || env->key.code[TD])
+	// camera_move(env, LOCKED);
+
+	camera_move_inertia(env, 0.93, LOCKED);
 	if (env->key.code[ZP] || env->key.code[ZM])
 		camera_zoom(env);
+	// camera_look_at_target(env);
 
 	if (glfwGetKey(env->win.ptr, GLFW_KEY_I) == GLFW_PRESS)
 		rotate(&env->model.rotation, (t_vec3) { 2, 0, 0 });
