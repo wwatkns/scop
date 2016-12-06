@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 17:20:21 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/05 19:35:07 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/06 13:54:03 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ int		main(void)
 
 	init(&env);
 
-	/*	Create the key callback */
-	// glfwSetKeyCallback(env.win.ptr, key_callback);
 	/*	Build and compile our shader program */
 	build_shader_program(&env, "../shader/vertex.glsl", "../shader/fragment.glsl");
 	/*	Create the objects buffers for the differents objects
@@ -62,7 +60,9 @@ int		main(void)
 	{
 		/*	Events handler */
 		glfwPollEvents();
+
 		key_pressed(&env);
+		key_action(&env);
 		/*	Clears the color buffer */
 		glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -80,6 +80,8 @@ int		main(void)
 
 		// rotate(&env.model.rotation, (t_vec3) { cos(epoch) * 180, sin(epoch) * 180, 0 });
 		// rotate(&env.model.rotation, (t_vec3) { 0, sin(epoch) * 180, 0 });
+		rotate(&env.model.rotation, (t_vec3) { 0, 0.5, 0 });
+		scale(&env.model.scale, (t_vec3) { sin(epoch)*0.01, sin(epoch)*0.01, sin(epoch)*0.01 });
 
 		// translate(&env.model.translation, (t_vec3) {
 		// 	sin(epoch) * 0.1,
@@ -92,9 +94,13 @@ int		main(void)
 		// 	sin(epoch * 2) * 0.4 + 1.2
 		// });
 
+		/*	Camera simulation */
+		env.sim.view = look_at(&env, &env.cam.pos, &env.cam.target, &env.cam.up);
+
 		env.sim.model = mat4_mul(env.model.rotation,
 						mat4_mul(env.model.translation, env.model.scale));
 		mat4_print(&env.sim.model);
+
 
 		/*	Activate the shader program */
 		glUseProgram(env.shader.program);

@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/01 16:27:51 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/05 19:43:16 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/06 11:57:59 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	set_model_matrix(t_mat4 *m)
 void	set_view_matrix(t_mat4 *m)
 {
 	mat4_set(m, IDENTITY);
-	m->tz = -1;
+	// m->tz = -1;
 }
 
 void	set_projection_matrix(t_mat4 *m, float fov, float ratio, float near, float far)

@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 17:23:49 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/05 19:19:38 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/06 13:10:32 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,17 @@
 # define WINDOW_W 1440
 # define WINDOW_H 1280
 
+# define ZP GLFW_KEY_KP_ADD
+# define ZM GLFW_KEY_KP_SUBTRACT
+# define TF GLFW_KEY_W
+# define TB GLFW_KEY_S
+# define TL GLFW_KEY_A
+# define TR GLFW_KEY_D
+# define TU GLFW_KEY_LEFT_SHIFT
+# define TD GLFW_KEY_LEFT_CONTROL
+
+# define MAX_KEYS 348
+
 typedef struct	s_cam
 {
 	t_vec4	pos;
@@ -42,12 +53,13 @@ typedef struct	s_cam
 	t_vec4	target;
 	t_vec4	up;
 	t_vec4	right;
+	t_vec4	front;
 	float	fov;
 }				t_cam;
 
 typedef struct	s_key
 {
-	short	code[512];
+	short	code[MAX_KEYS];
 }				t_key;
 
 /*	Model matrices for the following operations:
@@ -117,9 +129,8 @@ void			init_cam(t_env *env);
 void			init(t_env *env);
 
 // callback.c
-// void			key_callback(GLFWwindow *window, int key, int sc, int action, int mode);
-void			key_reset(t_env *env);
 void			key_pressed(t_env *env);
+void			key_action(t_env *env);
 
 // shader.c
 const GLchar	*get_shader_source(char *filename);
@@ -144,6 +155,12 @@ void			translate(t_mat4 *m, t_vec3 v);
 void			rotate(t_mat4 *m, t_vec3 v);
 void			scale(t_mat4 *m, t_vec3 v);
 
-t_mat4			look_at(t_vec4 *from, t_vec4 *to);
+t_mat4			look_at(t_env *env, t_vec4 *from, t_vec4 *to, t_vec4 *up);
+
+// camera.c
+void			camera_zoom(t_env *env);
+void			camera_move(t_env *env);
+void			camera_rotate(t_env *env);
+
 
 #endif

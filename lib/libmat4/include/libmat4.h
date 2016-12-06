@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/03 10:54:24 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/05 16:49:00 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/06 12:30:53 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,8 @@ t_vec4	vec3_mul(t_vec4 a, t_vec4 b);
 t_vec4	vec3_fmul(t_vec4 v, float f);
 t_vec4	vec3_scale(t_vec4 v, float f);
 t_vec4	vec3_cross(t_vec4 a, t_vec4 b);
-t_vec4	vec3_rotate(t_vec4 v, float x, float y, float z);
+// t_vec4	vec3_rotate(t_vec4 v, float x, float y, float z);
+t_vec4	vec3_rotate(t_vec4 v, t_vec4 axis);
 
 float	vec3_dot(t_vec4 a, t_vec4 b);
 float	vec3_magnitude(t_vec4 v);
