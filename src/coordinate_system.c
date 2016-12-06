@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/01 16:27:51 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/06 16:29:14 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/06 17:25:15 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,10 @@ void	set_projection_matrix(t_mat4 *m, float fov, float ratio, float near, float 
 	m->m[10] = -(far + near) / (far - near);
 	m->m[11] = -1;
 	m->m[14] = -2 * far * near / (far - near);
+}
+
+void	compute_mvp_matrix(t_env *env)
+{
+	env->sim.mvp = mat4_mul(env->sim.view, env->sim.projection);
+	env->sim.mvp = mat4_mul(env->sim.mvp, mat4_transpose(env->sim.model));
 }

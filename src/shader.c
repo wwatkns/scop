@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 14:53:46 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/06 16:32:14 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/06 17:19:31 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,5 @@ void	build_shader_program(t_env *env, char *v_file, char *f_file)
 	shader_vertex = create_shader(v_file, GL_VERTEX_SHADER);
 	shader_fragment = create_shader(f_file, GL_FRAGMENT_SHADER);
 	env->shader.program = create_shader_program(shader_vertex, shader_fragment);
-	env->shader.mloc = glGetUniformLocation(env->shader.program, "model");
-	env->shader.vloc = glGetUniformLocation(env->shader.program, "view");
-	env->shader.ploc = glGetUniformLocation(env->shader.program, "projection");
+	env->shader.mvploc = glGetUniformLocation(env->shader.program, "mvp");
 }

@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/03 10:54:24 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/06 12:30:53 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/06 17:17:13 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ t_mat4	mat4_sub(t_mat4 a, t_mat4 b);
 t_mat4	mat4_mul(t_mat4 a, t_mat4 b);
 t_mat4	mat4_scale(t_mat4 m, float f);
 
-t_mat4	mat4_transpose(t_mat4 *m);
+t_mat4	mat4_transpose(t_mat4 m);
 t_mat4	mat4_rotate_axis(t_mat4 m, int axis, float angle);
 
 /* Common

@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 17:23:49 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/06 17:07:42 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/06 19:30:13 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,10 @@ typedef struct	s_model
 	t_mat4			scale;
 	t_mat4			rotation;
 	GLfloat			*vertices;
-	GLfloat			*indices;
+	GLuint			*indices;
 	unsigned int	size_indices;
 	unsigned int	size_vertices;
+	unsigned int	amount_indices;
 	int				indices_amount;
 }				t_model;
 
@@ -83,6 +84,7 @@ typedef struct	s_sim
 	t_mat4	model;
 	t_mat4	view;
 	t_mat4	projection;
+	t_mat4	mvp;
 }				t_sim;
 
 typedef struct	s_buffer
@@ -95,9 +97,7 @@ typedef struct	s_buffer
 typedef struct	s_shader
 {
 	GLuint	program;
-	GLint	mloc;
-	GLint	vloc;
-	GLint	ploc;
+	GLint	mvploc;
 }				t_shader;
 
 typedef struct	s_win
@@ -137,10 +137,13 @@ GLuint			create_shader_program(GLuint shader_vertex, GLuint shader_fragment);
 void			build_shader_program(t_env *env, char *v_file, char *f_file);
 
 // buffer.c
-void			create_buffers(t_env *env, GLfloat *vertices, GLuint *indices, int mode);
+void			create_buffers(t_env *env, int mode);
 
 // parsing.c
 void			parse_model(t_env *env);
+void			parse_obj(t_env *env, char *filename);
+GLfloat			*append_vertices(GLfloat *array, char *line, int length);
+GLuint			*append_indices(GLuint *array, char *line, int length);
 
 // utils.c
 void			clean_glfw(t_env *env);
@@ -149,6 +152,7 @@ void			clean_glfw(t_env *env);
 void			set_model_matrix(t_mat4 *m);
 void			set_view_matrix(t_mat4 *m);
 void			set_projection_matrix(t_mat4 *m, float fov, float ratio, float near, float far);
+void			compute_mvp_matrix(t_env *env);
 
 // movement.c
 void			translate(t_mat4 *m, t_vec3 v);
