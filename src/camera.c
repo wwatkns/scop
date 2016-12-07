@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 12:13:45 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/06 16:38:26 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/07 12:05:58 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	camera_look_at_target(t_env *env)
 	t_mat4	view;
 
 	tmp = env->cam.up;
+	env->cam.target = env->model.center_axis;
 	env->cam.front = vec3_normalize(vec3_sub(env->cam.pos, env->cam.target));
 	env->cam.right = vec3_normalize(vec3_cross(env->cam.up, env->cam.front));
 	tmp = vec3_cross(env->cam.front, env->cam.right);

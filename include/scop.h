@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 17:23:49 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/06 19:30:13 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/07 11:30:57 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ typedef struct	s_model
 	GLuint			*indices;
 	unsigned int	size_indices;
 	unsigned int	size_vertices;
-	unsigned int	amount_indices;
-	int				indices_amount;
+	unsigned int	num_indices;
+	t_vec4			center_axis;
 }				t_model;
 
 typedef struct	s_sim

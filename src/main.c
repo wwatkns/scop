@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 17:20:21 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/06 19:30:03 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/07 15:34:54 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,6 @@ int		main(void)
 	init(&env);
 	parse_model(&env);
 	build_shader_program(&env, "../shader/vertex.glsl", "../shader/fragment.glsl");
-	// env.model.size_vertices = sizeof(vertices); // to set after parsing
-	// env.model.size_indices = sizeof(indices);
-	// create_buffers(&env, vertices, indices, GL_DYNAMIC_DRAW);
 	create_buffers(&env, GL_DYNAMIC_DRAW);
 	glBindVertexArray(0);
 
@@ -60,8 +57,7 @@ int		main(void)
 
 		/*	Draw our rectangle using the shader program */
 		glBindVertexArray(env.buffer.VAO);
-		// glDrawElements(GL_TRIANGLES, env.model.size_indices, GL_UNSIGNED_INT, 0); // 36 is num of indices
-		glDrawElements(GL_TRIANGLES, env.model.size_indices, GL_UNSIGNED_INT, 0); // 36 is num of indices
+		glDrawElements(GL_TRIANGLES, env.model.num_indices, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 		glfwSwapBuffers(env.win.ptr);
 	}

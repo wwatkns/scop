@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/01 11:32:58 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/06 19:30:18 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/07 15:36:21 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,11 @@ void	create_buffers(t_env *env, int mode)
 	glGenBuffers(1, &env->buffer.VBO);
 	glGenBuffers(1, &env->buffer.EBO);
 	glGenVertexArrays(1, &env->buffer.VAO);
-	/*	Binds the objects to the corresponding buffers with
-		the vertex_array_object first */
 	glBindVertexArray(env->buffer.VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, env->buffer.VBO);
 	glBufferData(GL_ARRAY_BUFFER, env->model.size_vertices, env->model.vertices, mode);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, env->buffer.EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, env->model.size_indices, env->model.indices, mode);
-	/* Position attributes */
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
 	/* Color attributes */

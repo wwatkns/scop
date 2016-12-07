@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 14:53:46 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/06 17:19:31 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/07 11:25:34 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ GLuint	create_shader(char *filename, int shaderType)
 	shader = glCreateShader(shaderType);
 	glShaderSource(shader, 1, &shaderSource, NULL);
 	glCompileShader(shader);
-
+	free((void*)shaderSource);
 	glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
 	if (!success)
 	{
