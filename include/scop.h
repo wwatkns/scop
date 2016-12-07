@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 17:23:49 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/07 11:30:57 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/07 15:41:37 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,8 +142,8 @@ void			create_buffers(t_env *env, int mode);
 // parsing.c
 void			parse_model(t_env *env);
 void			parse_obj(t_env *env, char *filename);
-GLfloat			*append_vertices(GLfloat *array, char *line, int length);
-GLuint			*append_indices(GLuint *array, char *line, int length);
+GLfloat			*append_vertices(GLfloat *array, char *line, int *length);
+GLuint			*append_indices(GLuint *array, char *line, int *length);
 
 // utils.c
 void			clean_glfw(t_env *env);
