@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vec3_sub.c                                         :+:      :+:    :+:   */
+/*   vec3_print.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/05 10:54:36 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/08 13:06:37 by wwatkins         ###   ########.fr       */
+/*   Created: 2016/12/05 11:13:29 by wwatkins          #+#    #+#             */
+/*   Updated: 2016/12/08 13:07:14 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmat4.h"
 
-t_vec3 	vec3_sub(t_vec3 a, t_vec3 b)
+void	vec3_print(t_vec3 *v)
 {
-	int	i;
+	int i;
 
 	i = -1;
+	printf("[ ");
 	while (++i < 3)
-		a.v[i] -= b.v[i];
-	return (a);
+		printf("%.3f ", v->v[i]);
+	printf("]\n\n");
 }

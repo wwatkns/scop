@@ -6,13 +6,13 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/05 11:06:56 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/05 12:32:32 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/08 13:03:51 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmat4.h"
 
-t_vec4 	vec3_mul(t_vec4 a, t_vec4 b)
+t_vec3 	vec3_mul(t_vec3 a, t_vec3 b)
 {
 	int	i;
 

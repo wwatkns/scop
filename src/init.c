@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 13:33:55 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/06 16:30:01 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/08 17:25:35 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,30 +37,36 @@ void	init_glfw_win(t_env *env)
 
 void	init_matrices(t_env *env)
 {
-	set_model_matrix(&env->sim.model);
-	set_view_matrix(&env->sim.view);
+	mat4_set(&env->sim.model, IDENTITY);
+	mat4_set(&env->sim.view, IDENTITY);
 	set_projection_matrix(&env->sim.projection, env->cam.fov, env->win.ratio, 0.001f, 100.0f);
 	mat4_set(&env->model.rotation, IDENTITY);
 	mat4_set(&env->model.translation, IDENTITY);
 	mat4_set(&env->model.scale, IDENTITY);
+	vec3_set(&env->model.inertia, 0);
 }
 
 void	init_cam(t_env *env)
 {
-	t_vec4	up;
+	t_vec3	up;
 
-	up = (t_vec4) {0, 1, 0, 1};
-	env->cam.pos = (t_vec4) {0, 0, 3, 1};
-	env->cam.target = (t_vec4) {0, 0, 0, 1};
+	up = vec3(0, 1, 0);
+	env->cam.pos = vec3(0, 0, 3);
+	env->cam.target = vec3(0, 0, 0);
 	env->cam.dir = vec3_normalize(vec3_sub(env->cam.pos, env->cam.target));
 	env->cam.right = vec3_normalize(vec3_cross(up, env->cam.dir));
 	env->cam.up = vec3_cross(env->cam.dir, env->cam.right);
 	env->cam.front = vec3_cross(env->cam.up, env->cam.right);
-	env->cam.inertia = (t_vec4) {0, 0, 0, 1};
+	vec3_set(&env->cam.inertia, 0);
 }
 
 void	init(t_env *env)
 {
+	int	i;
+
+	i = -1;
+	while (++i < MAX_KEYS)
+		env->key[i].cooldown = 0;
 	env->cam.fov = CAMERA_FOV;
 	env->win.w = WINDOW_W;
 	env->win.h = WINDOW_H;
@@ -69,4 +75,9 @@ void	init(t_env *env)
 	init_glfw_win(env);
 	init_cam(env);
 	init_matrices(env);
+	env->mod.wireframe = GL_FILL;
+	env->mod.shading = 0;
+	env->mod.focus = 1;
+	env->mod.color = 0;
+	env->mod.texture = 0;
 }

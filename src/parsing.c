@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 16:53:07 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/07 17:11:11 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/08 16:21:33 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,6 @@ void	print_debug_indices(t_env *env)
 	}
 }
 
-int		array_len(void **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i] != NULL)
-		i++;
-	return (i);
-}
-
 GLfloat	*append_vertices(GLfloat *array, char *line, int *length)
 {
 	int		i;
@@ -56,17 +46,18 @@ GLfloat	*append_vertices(GLfloat *array, char *line, int *length)
 	GLfloat	*new;
 
 	tab = ft_strsplit(&line[1], ' ');
-	*length += 3;
+	*length += 6;
 	new = (GLfloat*)malloc(sizeof(GLfloat) * *length);
 	i = -1;
-	while (++i < *length - 3)
+	while (++i < *length - 6)
 		new[i] = array[i];
 	free(array);
 	array = new;
 	j = -1;
 	while (tab[++j] != NULL)
 	{
-		array[*length - 3 + j] = (GLfloat)ft_atof(tab[j]);
+		array[*length - 6 + j] = (GLfloat)ft_atof(tab[j]);
+		array[*length - 3 + j] = j * 0.66f;
 		ft_strdel(&tab[j]);
 	}
 	ft_strdel(&tab[j]);
@@ -97,15 +88,8 @@ GLuint	*append_indices(GLuint *array, char *line, int *length)
 	{
 		array[*length - m + j] = (GLuint)ft_atoi(tab[j]) - 1;
 		if (m == 6)
-		{
-			// array[*length - m + 3 + j] = (GLuint)ft_atoi(tab[j-(j%1)]) - 1;
-			// printf("%d\n", j - (j % 1));
-			// printf("%d\n", j - ((j+1) % 3));
-			array[*length - m + 3 + 0] = (GLuint)ft_atoi(tab[0]) - 1;
-			array[*length - m + 3 + 1] = (GLuint)ft_atoi(tab[2]) - 1;
-			array[*length - m + 3 + 2] = (GLuint)ft_atoi(tab[3]) - 1;
-		}
-		// ft_strdel(&tab[j]);
+			array[*length - m + 3 + j] = (GLuint)ft_atoi(tab[j > 0 ? j + 1 : 0]) - 1;
+		ft_strdel(&tab[j]);
 	}
 	ft_strdel(&tab[j]);
 	free(tab);
@@ -113,17 +97,17 @@ GLuint	*append_indices(GLuint *array, char *line, int *length)
 	return (array);
 }
 
-t_vec4	compute_center_axis(GLfloat	*vertices, unsigned int num_vertices)
+t_vec3	compute_center_axis(GLfloat	*vertices, int num_vertices)
 {
 	int		i;
-	t_vec4	max;
-	t_vec4	min;
-	t_vec4	center;
+	t_vec3	max;
+	t_vec3	min;
+	t_vec3	center;
 
 	i = 0;
-	max = (t_vec4) {0, 0, 0, 1};
-	min = (t_vec4) {0, 0, 0, 1};
-	while (i < num_vertices - 3)
+	max = vec3(0, 0, 0);
+	min = vec3(0, 0, 0);
+	while (i < num_vertices - 6)
 	{
 		vertices[i] > max.x ? max.x = vertices[i] : 0;
 		vertices[i] < min.x ? min.x = vertices[i] : 0;
@@ -131,10 +115,9 @@ t_vec4	compute_center_axis(GLfloat	*vertices, unsigned int num_vertices)
 		vertices[i + 1] < min.y ? min.y = vertices[i + 1] : 0;
 		vertices[i + 2] > max.z ? max.z = vertices[i + 2] : 0;
 		vertices[i + 2] < min.z ? min.z = vertices[i + 2] : 0;
-		i += 3;
+		i += 6;
 	}
 	center = vec3_fmul(vec3_add(min, max), 0.5);
-	printf("(%f, %f, %f, %f)\n", center.x, center.y, center.z, center.w);
 	return (center);
 }
 
@@ -147,6 +130,8 @@ void	parse_obj(t_env *env, char *filename)
 
 	v = 0;
 	f = 0;
+	env->model.vertices = (GLfloat*)malloc(sizeof(GLfloat) * 3);
+	env->model.indices = (GLuint*)malloc(sizeof(GLuint) * 3);
 	fd = open(filename, O_RDWR);
 	while (get_next_line(fd, &line) > 0)
 	{
@@ -161,18 +146,7 @@ void	parse_obj(t_env *env, char *filename)
 	env->model.size_indices = f * sizeof(GLuint);
 	env->model.num_indices = f;
 	env->model.center_axis = compute_center_axis(env->model.vertices, v);
+	env->cam.target = env->model.center_axis;
 	// print_debug_vertices(env);
-	print_debug_indices(env);
-	// printf("%d\n", v);
-	// printf("%d\n", f);
-}
-
-void	load_mtl(char *filename)
-{
-
-}
-
-void	parse_model(t_env *env)
-{
-	parse_obj(env, "../resources/42.obj");
+	// print_debug_indices(env);
 }

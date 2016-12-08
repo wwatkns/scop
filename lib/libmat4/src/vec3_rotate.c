@@ -6,18 +6,18 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/05 11:34:09 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/06 12:30:29 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/08 13:08:29 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmat4.h"
 
-// t_vec4 	vec3_rotate(t_vec4 v, float x, float y, float z)
-t_vec4 	vec3_rotate(t_vec4 v, t_vec4 axis)
+// t_vec3 	vec3_rotate(t_vec3 v, float x, float y, float z)
+t_vec3 	vec3_rotate(t_vec3 v, t_vec3 axis)
 {
-	t_vec4 	tmp;
+	t_vec3 	tmp;
 
-	vec4_copy(&tmp, &v);
+	vec3_copy(&tmp, &v);
 	if (axis.z != 0.0)
 	{
 		axis.z *= (M_PI / 180);
@@ -36,6 +36,6 @@ t_vec4 	vec3_rotate(t_vec4 v, t_vec4 axis)
 		tmp.y = v.y * cos(axis.x) - v.z * sin(axis.x);
 		tmp.z = v.y * sin(axis.x) + v.z * cos(axis.x);
 	}
-	vec4_copy(&v, &tmp);
+	vec3_copy(&v, &tmp);
 	return (v);
 }

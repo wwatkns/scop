@@ -1,23 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vec4_copy.c                                        :+:      :+:    :+:   */
+/*   vec.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/05 11:31:38 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/05 12:34:39 by wwatkins         ###   ########.fr       */
+/*   Created: 2016/12/08 12:46:23 by wwatkins          #+#    #+#             */
+/*   Updated: 2016/12/08 12:48:04 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmat4.h"
 
-t_vec4 	vec4_copy(t_vec4 *a, t_vec4 *b)
+t_vec3	vec3(float x, float y, float z)
 {
-	int	i;
+	t_vec3	new;
 
-	i = -1;
-	while (++i < 4)
-		a->v[i] = b->v[i];
-	return (*a);
+	new.x = x;
+	new.y = y;
+	new.z = z;
+	return (new);
+}
+
+t_vec4	vec4(float x, float y, float z, float w)
+{
+	t_vec4	new;
+
+	new.x = x;
+	new.y = y;
+	new.z = z;
+	new.w = w;
+	return (new);
 }

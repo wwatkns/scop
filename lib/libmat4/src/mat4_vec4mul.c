@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/05 11:52:13 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/05 16:48:51 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/08 13:15:33 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,5 @@ void	mat4_vec4mul(t_vec4 *a, t_mat4 *b)
 				tmp.v[h * 4 + w] += a->v[h * 4 + z] * b->m[z * 4 + w];
 		}
 	}
-	vec4_copy(a, &tmp);
+	// vec4_copy(a, &tmp);
 }

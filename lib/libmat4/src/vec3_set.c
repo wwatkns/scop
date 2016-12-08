@@ -6,18 +6,17 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/05 10:52:37 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/05 12:36:07 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/08 13:14:48 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmat4.h"
 
-void	vec3_set(t_vec4 *v, float f)
+void	vec3_set(t_vec3 *v, float f)
 {
 	int		i;
 
 	i = -1;
 	while (++i < 3)
 		v->v[i] = f;
-	v->w = 1;
 }

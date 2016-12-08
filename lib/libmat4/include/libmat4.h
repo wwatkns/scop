@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/03 10:54:24 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/06 17:17:13 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/08 13:16:49 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,22 +93,23 @@ void	mat4_vec4mul(t_vec4 *a, t_mat4 *b);
 
 /* Vectors
 */
-void	vec3_set(t_vec4 *v, float f);
-t_vec4	vec4_copy(t_vec4 *a, t_vec4 *b);
+t_vec3	vec3(float x, float y, float z);
+t_vec4	vec4(float x, float y, float z, float w);
+void	vec3_set(t_vec3 *v, float f);
+t_vec3	vec3_copy(t_vec3 *a, t_vec3 *b);
 
-t_vec4	vec3_add(t_vec4 a, t_vec4 b);
-t_vec4	vec3_sub(t_vec4 a, t_vec4 b);
-t_vec4	vec3_mul(t_vec4 a, t_vec4 b);
-t_vec4	vec3_fmul(t_vec4 v, float f);
-t_vec4	vec3_scale(t_vec4 v, float f);
-t_vec4	vec3_cross(t_vec4 a, t_vec4 b);
-// t_vec4	vec3_rotate(t_vec4 v, float x, float y, float z);
-t_vec4	vec3_rotate(t_vec4 v, t_vec4 axis);
+t_vec3	vec3_add(t_vec3 a, t_vec3 b);
+t_vec3	vec3_sub(t_vec3 a, t_vec3 b);
+t_vec3	vec3_mul(t_vec3 a, t_vec3 b);
+t_vec3	vec3_fmul(t_vec3 v, float f);
+t_vec3	vec3_scale(t_vec3 v, float f);
+t_vec3	vec3_cross(t_vec3 a, t_vec3 b);
+t_vec3	vec3_rotate(t_vec3 v, t_vec3 axis);
 
-float	vec3_dot(t_vec4 a, t_vec4 b);
-float	vec3_magnitude(t_vec4 v);
-t_vec4	vec3_normalize(t_vec4 v);
+float	vec3_dot(t_vec3 a, t_vec3 b);
+float	vec3_magnitude(t_vec3 v);
+t_vec3	vec3_normalize(t_vec3 v);
 
-void	vec4_print(t_vec4 *v);
+void	vec3_print(t_vec3 *v);
 
 #endif

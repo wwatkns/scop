@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 13:51:00 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/06 16:55:56 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/08 17:24:06 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,38 @@ void	key_handle(t_env *env)
 		glfwSetWindowShouldClose(env->win.ptr, GL_TRUE);
 	i = -1;
 	while (++i < MAX_KEYS)
-		env->key.code[i] = glfwGetKey(env->win.ptr, i) == GLFW_PRESS ? 1 : 0;
+		env->key[i].code = glfwGetKey(env->win.ptr, i) == GLFW_PRESS ? 1 : 0;
+	key_toggle(&env->key[MW], &env->mod.wireframe, GL_FILL, GL_LINE);
+	key_toggle(&env->key[MF], &env->mod.focus, 0, 1);
+	key_toggle(&env->key[MS], &env->mod.shading, 0, 1);
+	key_toggle(&env->key[MC], &env->mod.color, 0, 1);
 	key_action(env);
 }
 
 void	key_action(t_env *env)
 {
-	if (env->key.code[ZP] || env->key.code[ZM])
+	if (env->key[ZP].code || env->key[ZM].code)
 		camera_zoom(env);
-	// camera_move(env, LOCKED);
-	camera_move_inertia(env, 0.93, LOCKED);
+	if (env->mod.focus)
+		camera_recenter(env);
+	camera_move_inertia(env, 0.93, FREE);
 	camera_look_at_target(env);
-	if (glfwGetKey(env->win.ptr, GLFW_KEY_I) == GLFW_PRESS)
-		rotate(&env->model.rotation, (t_vec3) { 2, 0, 0 });
-	if (glfwGetKey(env->win.ptr, GLFW_KEY_K) == GLFW_PRESS)
-		rotate(&env->model.rotation, (t_vec3) { -2, 0, 0 });
-	if (glfwGetKey(env->win.ptr, GLFW_KEY_J) == GLFW_PRESS)
-		rotate(&env->model.rotation, (t_vec3) { 0, -2, 0 });
-	if (glfwGetKey(env->win.ptr, GLFW_KEY_L) == GLFW_PRESS)
-		rotate(&env->model.rotation, (t_vec3) { 0, 2, 0 });
+	model_move_inertia(env, 0.9);
+	model_move_demo(env);
+
+	if (env->key[MW].code)
+		glPolygonMode(GL_FRONT_AND_BACK, env->mod.wireframe);
+}
+
+void	key_toggle(t_key *key, short *var, int v0, int v1)
+{
+	key->cooldown > 1 ? key->cooldown -= 1 : 0;
+	if (key->code && key->cooldown <= 1)
+	{
+		if (*var == v1)
+			*var = v0;
+		else if (*var == v0)
+			*var = v1;
+		key->cooldown = 20;
+	}
 }

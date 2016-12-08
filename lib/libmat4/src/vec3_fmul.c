@@ -6,13 +6,13 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/05 11:09:52 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/05 12:32:17 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/08 13:03:38 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmat4.h"
 
-t_vec4 	vec3_fmul(t_vec4 v, float f)
+t_vec3 	vec3_fmul(t_vec3 v, float f)
 {
 	int	i;
 

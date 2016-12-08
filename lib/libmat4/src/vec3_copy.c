@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vec4_print.c                                       :+:      :+:    :+:   */
+/*   vec3_copy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/05 11:13:29 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/05 12:36:54 by wwatkins         ###   ########.fr       */
+/*   Created: 2016/12/05 11:31:38 by wwatkins          #+#    #+#             */
+/*   Updated: 2016/12/08 13:08:40 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmat4.h"
 
-void	vec4_print(t_vec4 *v)
+t_vec3 	vec3_copy(t_vec3 *a, t_vec3 *b)
 {
-	int i;
+	int	i;
 
 	i = -1;
-	printf("[ ");
-	while (++i < 4)
-		printf("%.3f ", v->v[i]);
-	printf("]\n\n");
+	while (++i < 3)
+		a->v[i] = b->v[i];
+	return (*a);
 }

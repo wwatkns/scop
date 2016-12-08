@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 14:53:46 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/07 11:25:34 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/08 17:14:33 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,6 @@ void	build_shader_program(t_env *env, char *v_file, char *f_file)
 	shader_fragment = create_shader(f_file, GL_FRAGMENT_SHADER);
 	env->shader.program = create_shader_program(shader_vertex, shader_fragment);
 	env->shader.mvploc = glGetUniformLocation(env->shader.program, "mvp");
+	env->shader.smdloc = glGetUniformLocation(env->shader.program, "smod");
+	env->shader.cmdloc = glGetUniformLocation(env->shader.program, "cmod");
 }

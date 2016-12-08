@@ -6,13 +6,13 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/05 10:56:01 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/05 12:32:05 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/08 13:03:27 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmat4.h"
 
-float	vec3_dot(t_vec4 a, t_vec4 b)
+float	vec3_dot(t_vec3 a, t_vec3 b)
 {
 	return (a.x * b.x + a.y * b.y + a.z * b.z);
 }

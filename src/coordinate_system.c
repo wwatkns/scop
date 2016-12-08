@@ -6,21 +6,11 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/01 16:27:51 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/06 17:25:15 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/08 14:46:28 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
-
-void	set_model_matrix(t_mat4 *m)
-{
-	mat4_set(m, IDENTITY);
-}
-
-void	set_view_matrix(t_mat4 *m)
-{
-	mat4_set(m, IDENTITY);
-}
 
 void	set_projection_matrix(t_mat4 *m, float fov, float ratio, float near, float far)
 {
@@ -37,6 +27,6 @@ void	set_projection_matrix(t_mat4 *m, float fov, float ratio, float near, float 
 
 void	compute_mvp_matrix(t_env *env)
 {
-	env->sim.mvp = mat4_mul(env->sim.view, env->sim.projection);
-	env->sim.mvp = mat4_mul(env->sim.mvp, mat4_transpose(env->sim.model));
+	env->sim.mvp = mat4_mul(mat4_transpose(env->sim.model),
+		mat4_mul(env->sim.view, env->sim.projection));
 }
