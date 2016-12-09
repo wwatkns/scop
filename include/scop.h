@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 17:23:49 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/08 17:22:34 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/09 16:48:36 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,23 @@
 # define MS GLFW_KEY_2
 # define MC GLFW_KEY_C
 # define MF GLFW_KEY_R
+# define MT GLFW_KEY_T
 
 # define MAX_KEYS 348
 
 # define FREE 0
 # define LOCKED 1
+
+typedef struct	s_texture
+{
+	unsigned char	*img;
+	int				size;
+	int				w;
+	int				h;
+	int				sl;
+	short			bpp;
+	short			opp;
+}				t_texture;
 
 typedef struct	s_cam
 {
@@ -77,8 +89,6 @@ typedef struct	s_cam
 
 typedef struct	s_key
 {
-	// short	code[MAX_KEYS];
-	// short	cooldown[MAX_KEYS];
 	short	code;
 	short	cooldown;
 }				t_key;
@@ -95,6 +105,7 @@ typedef struct	s_model
 	unsigned int	num_indices;
 	t_vec3			center_axis;
 	t_vec3			inertia;
+	t_texture		texture;
 }				t_model;
 
 typedef struct	s_sim
@@ -110,6 +121,7 @@ typedef struct	s_buffer
 	GLuint	VAO;
 	GLuint	VBO;
 	GLuint	EBO;
+	GLuint	texture;
 }				t_buffer;
 
 typedef struct	s_shader
@@ -118,6 +130,8 @@ typedef struct	s_shader
 	GLint	mvploc;
 	GLint	cmdloc;
 	GLint	smdloc;
+	GLint	tmdloc;
+	GLint	texloc;
 }				t_shader;
 
 typedef struct	s_win
@@ -162,6 +176,7 @@ void			key_action(t_env *env);
 void			key_toggle(t_key *key, short *var, int v0, int v1);
 
 // shader.c
+void			update_shader_uniforms(t_env *env);
 const GLchar	*get_shader_source(char *filename);
 GLuint			create_shader(char *filename, int shaderType);
 GLuint			create_shader_program(GLuint shader_vertex, GLuint shader_fragment);
@@ -175,6 +190,10 @@ void			parse_obj(t_env *env, char *filename);
 GLfloat			*append_vertices(GLfloat *array, char *line, int *length);
 GLuint			*append_indices(GLuint *array, char *line, int *length);
 t_vec3			compute_center_axis(GLfloat	*vertices, int num_vertices);
+
+// texture.c
+void			load_bmp(t_env *env, char *filename);
+
 
 // utils.c
 void			clean_glfw(t_env *env);

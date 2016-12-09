@@ -6,11 +6,19 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 14:53:46 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/08 17:14:33 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/09 16:48:23 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
+
+void			update_shader_uniforms(t_env *env)
+{
+	glUniformMatrix4fv(env->shader.mvploc, 1, GL_FALSE, env->sim.mvp.m);
+	glUniform1i(env->shader.smdloc, env->mod.shading);
+	glUniform1i(env->shader.cmdloc, env->mod.color);
+	glUniform1i(env->shader.tmdloc, env->mod.texture);
+}
 
 const GLchar	*get_shader_source(char *filename)
 {
@@ -20,8 +28,7 @@ const GLchar	*get_shader_source(char *filename)
 	char	*source;
 
 	source = (GLchar*)malloc(sizeof(GLchar) * BUFFER_SIZE + 1);
-	fd = open(filename, O_RDONLY);
-	if (fd == -1)
+	if ((fd = open(filename, O_RDONLY)) == -1)
 		return (NULL);
 	while ((ret = read(fd, buffer, BUFFER_SIZE)))
 	{
@@ -32,7 +39,7 @@ const GLchar	*get_shader_source(char *filename)
 	return (source);
 }
 
-GLuint	create_shader(char *filename, int shaderType)
+GLuint			create_shader(char *filename, int shaderType)
 {
 	GLint			success;
 	GLchar			infoLog[512];
@@ -54,7 +61,7 @@ GLuint	create_shader(char *filename, int shaderType)
 	return (shader);
 }
 
-GLuint	create_shader_program(GLuint shader_vertex, GLuint shader_fragment)
+GLuint			create_shader_program(GLuint shader_vertex, GLuint shader_fragment)
 {
 	GLint	success;
 	GLchar	infoLog[512];
@@ -76,7 +83,7 @@ GLuint	create_shader_program(GLuint shader_vertex, GLuint shader_fragment)
 	return (shader_program);
 }
 
-void	build_shader_program(t_env *env, char *v_file, char *f_file)
+void			build_shader_program(t_env *env, char *v_file, char *f_file)
 {
 	GLuint	shader_vertex;
 	GLuint	shader_fragment;
@@ -87,4 +94,6 @@ void	build_shader_program(t_env *env, char *v_file, char *f_file)
 	env->shader.mvploc = glGetUniformLocation(env->shader.program, "mvp");
 	env->shader.smdloc = glGetUniformLocation(env->shader.program, "smod");
 	env->shader.cmdloc = glGetUniformLocation(env->shader.program, "cmod");
+	env->shader.tmdloc = glGetUniformLocation(env->shader.program, "tmod");
+	env->shader.texloc = glGetUniformLocation(env->shader.program, "loaded_texture");
 }

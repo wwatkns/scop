@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 13:51:00 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/08 17:24:06 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/09 16:55:58 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	key_handle(t_env *env)
 	key_toggle(&env->key[MF], &env->mod.focus, 0, 1);
 	key_toggle(&env->key[MS], &env->mod.shading, 0, 1);
 	key_toggle(&env->key[MC], &env->mod.color, 0, 1);
+	key_toggle(&env->key[MT], &env->mod.texture, 0, 1);
 	key_action(env);
 }
 
@@ -38,7 +39,6 @@ void	key_action(t_env *env)
 	camera_look_at_target(env);
 	model_move_inertia(env, 0.9);
 	model_move_demo(env);
-
 	if (env->key[MW].code)
 		glPolygonMode(GL_FRONT_AND_BACK, env->mod.wireframe);
 }
