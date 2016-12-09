@@ -6,37 +6,11 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 16:53:07 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/08 16:21:33 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/09 17:22:58 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
-
-void	print_debug_vertices(t_env *env)
-{
-	int j;
-
-	j = -1;
-	while (++j < env->model.size_vertices / sizeof(GLfloat))
-	{
-		(j + 1) % 3 == 1 ? printf("( ") : 0;
-		printf("%f ", env->model.vertices[j]);
-		(j + 1) % 3 == 0 ? printf(")\n") : 0;
-	}
-}
-
-void	print_debug_indices(t_env *env)
-{
-	int j;
-
-	j = -1;
-	while (++j < env->model.num_indices)
-	{
-		(j + 1) % 3 == 1 ? printf("( ") : 0;
-		printf("%u ", env->model.indices[j]);
-		(j + 1) % 3 == 0 ? printf(")\n") : 0;
-	}
-}
 
 GLfloat	*append_vertices(GLfloat *array, char *line, int *length)
 {
@@ -121,7 +95,7 @@ t_vec3	compute_center_axis(GLfloat	*vertices, int num_vertices)
 	return (center);
 }
 
-void	parse_obj(t_env *env, char *filename)
+void	load_obj(t_env *env, char *filename)
 {
 	int		fd;
 	int		v;
@@ -147,6 +121,4 @@ void	parse_obj(t_env *env, char *filename)
 	env->model.num_indices = f;
 	env->model.center_axis = compute_center_axis(env->model.vertices, v);
 	env->cam.target = env->model.center_axis;
-	// print_debug_vertices(env);
-	// print_debug_indices(env);
 }

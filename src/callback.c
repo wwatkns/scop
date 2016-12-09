@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 13:51:00 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/09 16:55:58 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/09 17:55:53 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,14 @@ void	key_action(t_env *env)
 		camera_zoom(env);
 	if (env->mod.focus)
 		camera_recenter(env);
+	if (env->key[ALT].code && env->key[RM].code)
+		env->cam.velocity -= 0.05;
+	if (env->key[ALT].code && env->key[RP].code) // NOPE
+		env->cam.velocity += 0.05;
+	model_move_demo(env);
 	camera_move_inertia(env, 0.93, FREE);
 	camera_look_at_target(env);
 	model_move_inertia(env, 0.9);
-	model_move_demo(env);
 	if (env->key[MW].code)
 		glPolygonMode(GL_FRONT_AND_BACK, env->mod.wireframe);
 }

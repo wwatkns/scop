@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 17:23:49 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/09 16:48:36 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/09 17:37:21 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,16 @@
 # define TR GLFW_KEY_L
 # define TU GLFW_KEY_PAGE_UP
 # define TD GLFW_KEY_PAGE_DOWN
+# define RM GLFW_KEY_MINUS
+# define RP GLFW_KEY_EQUAL
 /*	Modifiers */
 # define MW GLFW_KEY_1
 # define MS GLFW_KEY_2
 # define MC GLFW_KEY_C
 # define MF GLFW_KEY_R
 # define MT GLFW_KEY_T
+/*	MISCELLANEOUS */
+# define ALT GLFW_KEY_LEFT_ALT
 
 # define MAX_KEYS 348
 
@@ -85,6 +89,7 @@ typedef struct	s_cam
 	t_vec3	front;
 	float	fov;
 	t_vec3	inertia;
+	float	velocity;
 }				t_cam;
 
 typedef struct	s_key
@@ -96,7 +101,6 @@ typedef struct	s_key
 typedef struct	s_model
 {
 	t_mat4			translation;
-	t_mat4			scale;
 	t_mat4			rotation;
 	GLfloat			*vertices;
 	GLuint			*indices;
@@ -106,6 +110,7 @@ typedef struct	s_model
 	t_vec3			center_axis;
 	t_vec3			inertia;
 	t_texture		texture;
+	float			velocity;
 }				t_model;
 
 typedef struct	s_sim
@@ -163,54 +168,55 @@ typedef struct	s_env
 	t_model		model;
 }				t_env;
 
-// init.c
+/*	init.c */
 void			init_glfw_env(void);
 void			init_glfw_win(t_env *env);
 void			init_matrices(t_env *env);
 void			init_cam(t_env *env);
 void			init(t_env *env);
 
-// callback.c
+/*	callback.c */
 void			key_handle(t_env *env);
 void			key_action(t_env *env);
 void			key_toggle(t_key *key, short *var, int v0, int v1);
 
-// shader.c
+/*	shader.c */
 void			update_shader_uniforms(t_env *env);
 const GLchar	*get_shader_source(char *filename);
 GLuint			create_shader(char *filename, int shaderType);
 GLuint			create_shader_program(GLuint shader_vertex, GLuint shader_fragment);
 void			build_shader_program(t_env *env, char *v_file, char *f_file);
 
-// buffer.c
+/*	buffer.c */
+void			create_texture(t_env *env);
 void			create_buffers(t_env *env, int mode);
 
-// parsing.c
-void			parse_obj(t_env *env, char *filename);
+/*	parsing.c */
+void			load_obj(t_env *env, char *filename);
 GLfloat			*append_vertices(GLfloat *array, char *line, int *length);
 GLuint			*append_indices(GLuint *array, char *line, int *length);
 t_vec3			compute_center_axis(GLfloat	*vertices, int num_vertices);
 
-// texture.c
+/*	texture.c */
 void			load_bmp(t_env *env, char *filename);
+void			get_image(t_texture *texture, char *buffer, int i);
+void			read_header(char *filename, t_texture *texture);
 
-
-// utils.c
+/*	utils.c */
 void			clean_glfw(t_env *env);
 int				array_len(void **tab);
 
-// coordinate_system.c
+/*	coordinate_system.c */
 void			set_projection_matrix(t_mat4 *m, float fov, float ratio, float near, float far);
 void			compute_mvp_matrix(t_env *env);
 
-// movement.c
+/*	movement.c */
 void			translate(t_mat4 *m, t_vec3 v);
 void			rotate(t_mat4 *m, t_vec3 v);
-void			scale(t_mat4 *m, t_vec3 v);
 void			model_move_inertia(t_env *env, float inertia);
 void			model_move_demo(t_env *env);
 
-// camera.c
+/*	camera.c */
 void			camera_zoom(t_env *env);
 void			camera_move_inertia(t_env *env, float inertia, int mode);
 void			camera_recenter(t_env *env);

@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 13:33:55 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/08 17:25:35 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/09 17:34:17 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	init_matrices(t_env *env)
 	set_projection_matrix(&env->sim.projection, env->cam.fov, env->win.ratio, 0.001f, 100.0f);
 	mat4_set(&env->model.rotation, IDENTITY);
 	mat4_set(&env->model.translation, IDENTITY);
-	mat4_set(&env->model.scale, IDENTITY);
 	vec3_set(&env->model.inertia, 0);
 }
 
@@ -80,4 +79,5 @@ void	init(t_env *env)
 	env->mod.focus = 1;
 	env->mod.color = 0;
 	env->mod.texture = 0;
+	env->model.velocity = 0.33;
 }

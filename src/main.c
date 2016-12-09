@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 17:20:21 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/09 16:49:16 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/09 17:22:16 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		main(void)
 
 	init(&env);
 	// parse_obj(&env, "../resources/42.obj");
-	parse_obj(&env, "../resources/teapot2.obj");
+	load_obj(&env, "../resources/teapot2.obj");
 	load_bmp(&env, "../resources/chaton.bmp");
 	build_shader_program(&env, "../shader/vertex.glsl", "../shader/fragment.glsl");
 	create_buffers(&env, GL_DYNAMIC_DRAW);
@@ -30,8 +30,7 @@ int		main(void)
 		glClearColor(0.09f, 0.08f, 0.15f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		key_handle(&env);
-		env.sim.model = mat4_mul(env.model.rotation,
-						mat4_mul(env.model.translation, env.model.scale));
+		env.sim.model = mat4_mul(env.model.translation, env.model.rotation);
 		glUseProgram(env.shader.program);
 		compute_mvp_matrix(&env);
 		update_shader_uniforms(&env);
