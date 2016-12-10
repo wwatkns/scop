@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 13:33:55 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/09 17:34:17 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/10 12:05:59 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	init_matrices(t_env *env)
 	mat4_set(&env->model.rotation, IDENTITY);
 	mat4_set(&env->model.translation, IDENTITY);
 	vec3_set(&env->model.inertia, 0);
+	vec3_set(&env->model.center_axis, 0);
 }
 
 void	init_cam(t_env *env)
@@ -57,6 +58,7 @@ void	init_cam(t_env *env)
 	env->cam.up = vec3_cross(env->cam.dir, env->cam.right);
 	env->cam.front = vec3_cross(env->cam.up, env->cam.right);
 	vec3_set(&env->cam.inertia, 0);
+	env->cam.velocity = 0.005;
 }
 
 void	init(t_env *env)
@@ -78,6 +80,8 @@ void	init(t_env *env)
 	env->mod.shading = 0;
 	env->mod.focus = 1;
 	env->mod.color = 0;
+	env->mod.greyscale = 0;
+	env->mod.mapping = 0;
 	env->mod.texture = 0;
 	env->model.velocity = 0.33;
 }

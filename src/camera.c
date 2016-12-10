@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 12:13:45 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/09 16:56:44 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/10 12:11:27 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 void	camera_zoom(t_env *env)
 {
 	if (env->key[ZP].code)
-		set_projection_matrix(&env->sim.projection, env->cam.fov -= 1, env->win.ratio, 0.001f, 100.0f);
+		set_projection_matrix(&env->sim.projection,
+		env->cam.fov -= 1, env->win.ratio, 0.001f, 100.0f);
 	if (env->key[ZM].code)
-		set_projection_matrix(&env->sim.projection, env->cam.fov += 1, env->win.ratio, 0.001f, 100.0f);
+		set_projection_matrix(&env->sim.projection,
+		env->cam.fov += 1, env->win.ratio, 0.001f, 100.0f);
 }
 
 void	camera_move_inertia(t_env *env, float inertia, int mode)
@@ -27,23 +29,29 @@ void	camera_move_inertia(t_env *env, float inertia, int mode)
 	env->cam.inertia = vec3_fmul(env->cam.inertia, inertia);
 	vec3_copy(&old, &env->cam.pos);
 	if (env->key[CF].code)
-		env->cam.inertia = vec3_sub(env->cam.inertia, vec3_fmul(env->cam.front, 0.005));
+		env->cam.inertia = vec3_sub(env->cam.inertia,
+		vec3_fmul(env->cam.front, env->cam.velocity));
 	if (env->key[CB].code)
-		env->cam.inertia = vec3_add(env->cam.inertia, vec3_fmul(env->cam.front, 0.005));
+		env->cam.inertia = vec3_add(env->cam.inertia,
+		vec3_fmul(env->cam.front, env->cam.velocity));
 	if (env->key[CL].code)
-		env->cam.inertia = vec3_sub(env->cam.inertia, vec3_fmul(env->cam.right, 0.005));
+		env->cam.inertia = vec3_sub(env->cam.inertia,
+		vec3_fmul(env->cam.right, env->cam.velocity));
 	if (env->key[CR].code)
-		env->cam.inertia = vec3_add(env->cam.inertia, vec3_fmul(env->cam.right, 0.005));
+		env->cam.inertia = vec3_add(env->cam.inertia,
+		vec3_fmul(env->cam.right, env->cam.velocity));
 	if (env->key[CU].code)
-		env->cam.inertia = vec3_add(env->cam.inertia, vec3_fmul(env->cam.up, 0.005));
+		env->cam.inertia = vec3_add(env->cam.inertia,
+		vec3_fmul(env->cam.up, env->cam.velocity));
 	if (env->key[CD].code)
-		env->cam.inertia = vec3_sub(env->cam.inertia, vec3_fmul(env->cam.up, 0.005));
+		env->cam.inertia = vec3_sub(env->cam.inertia,
+		vec3_fmul(env->cam.up, env->cam.velocity));
 	env->cam.pos = vec3_add(env->cam.pos, env->cam.inertia);
 	if (mode == FREE)
 		env->cam.target = vec3_add(env->cam.target, vec3_sub(env->cam.pos, old));
 }
 
-void	camera_recenter(t_env *env)
+void	camera_center(t_env *env)
 {
 	t_vec3	model_pos;
 

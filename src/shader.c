@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 14:53:46 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/09 16:48:23 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/10 12:06:49 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void			update_shader_uniforms(t_env *env)
 	glUniformMatrix4fv(env->shader.mvploc, 1, GL_FALSE, env->sim.mvp.m);
 	glUniform1i(env->shader.smdloc, env->mod.shading);
 	glUniform1i(env->shader.cmdloc, env->mod.color);
+	glUniform1i(env->shader.gmdloc, env->mod.greyscale);
+	glUniform1i(env->shader.mmdloc, env->mod.mapping);
 	glUniform1i(env->shader.tmdloc, env->mod.texture);
 }
 
@@ -95,5 +97,7 @@ void			build_shader_program(t_env *env, char *v_file, char *f_file)
 	env->shader.smdloc = glGetUniformLocation(env->shader.program, "smod");
 	env->shader.cmdloc = glGetUniformLocation(env->shader.program, "cmod");
 	env->shader.tmdloc = glGetUniformLocation(env->shader.program, "tmod");
+	env->shader.gmdloc = glGetUniformLocation(env->shader.program, "gmod");
+	env->shader.mmdloc = glGetUniformLocation(env->shader.program, "mmod");
 	env->shader.texloc = glGetUniformLocation(env->shader.program, "loaded_texture");
 }

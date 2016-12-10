@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 16:53:07 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/09 17:22:58 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/10 12:14:34 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,30 @@ t_vec3	compute_center_axis(GLfloat	*vertices, int num_vertices)
 		vertices[i + 2] < min.z ? min.z = vertices[i + 2] : 0;
 		i += 6;
 	}
-	center = vec3_fmul(vec3_add(min, max), 0.5);
+	center = vec3_fmul(vec3_add(max, min), 0.5);
 	return (center);
+}
+
+void	center_vertices(t_env *env, int length)
+{
+	int		i;
+	float	tx;
+	float	theta;
+
+	i = 0;
+	theta = 90 * (M_PI / 180);
+	while (i < length)
+	{
+		env->model.vertices[i] -= env->model.center_axis.x;
+		env->model.vertices[i + 1] -= env->model.center_axis.y;
+		env->model.vertices[i + 2] -= env->model.center_axis.z;
+		tx = env->model.vertices[i] * cos(theta) -
+			env->model.vertices[i + 2] * sin(theta);
+		env->model.vertices[i + 2] = env->model.vertices[i] * sin(theta) +
+			env->model.vertices[i + 2] * cos(theta);
+		env->model.vertices[i] = tx;
+		i += 6;
+	}
 }
 
 void	load_obj(t_env *env, char *filename)
@@ -120,5 +142,6 @@ void	load_obj(t_env *env, char *filename)
 	env->model.size_indices = f * sizeof(GLuint);
 	env->model.num_indices = f;
 	env->model.center_axis = compute_center_axis(env->model.vertices, v);
-	env->cam.target = env->model.center_axis;
+	center_vertices(env, v);
+	env->model.center_axis = vec3(0, 0, 0);
 }

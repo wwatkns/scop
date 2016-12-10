@@ -6,16 +6,14 @@ in vec2				texture_coordinates;
 
 uniform bool		smod;
 uniform bool		tmod;
+uniform bool		gmod;
 uniform sampler2D	loaded_texture;
 
 out vec4		color;
 
 void	main()
 {
-	// float	mean;
-
-	// mean = (fragment_color.x + fragment_color.y + fragment_color.z) / 3.0;
-	// color = vec4(mean);
+	float	grey;
 
 	if (smod)
 		color = fragment_color_s;
@@ -23,4 +21,9 @@ void	main()
 		color = fragment_color_f;
 	if (tmod)
 		color = texture(loaded_texture, texture_coordinates);
+	if (gmod)
+	{
+		grey = (0.2125 * color.x + 0.7154 * color.y + 0.0721 * color.z) / 3.0f;
+		color = vec4(grey, grey, grey, 1.0f);
+	}
 }

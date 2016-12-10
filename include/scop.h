@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 17:23:49 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/09 17:37:21 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/10 12:17:00 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@
 # define OPENGL_VERSION "4.0"
 # define ABS(x) (x < 0 ? -x : x)
 # define BUFFER_SIZE 128
-# define DEG2RAD(x) (x * (180.0 / PI))
-# define RAD2DEG(x) (x * (PI / 180.0))
+# define COOLDOWN 20
 
 # define WINDOW_W 1440
 # define WINDOW_H 1280
@@ -57,11 +56,11 @@
 /*	Modifiers */
 # define MW GLFW_KEY_1
 # define MS GLFW_KEY_2
+# define MG GLFW_KEY_3
+# define MM GLFW_KEY_4
 # define MC GLFW_KEY_C
 # define MF GLFW_KEY_R
 # define MT GLFW_KEY_T
-/*	MISCELLANEOUS */
-# define ALT GLFW_KEY_LEFT_ALT
 
 # define MAX_KEYS 348
 
@@ -87,8 +86,8 @@ typedef struct	s_cam
 	t_vec3	up;
 	t_vec3	right;
 	t_vec3	front;
-	float	fov;
 	t_vec3	inertia;
+	float	fov;
 	float	velocity;
 }				t_cam;
 
@@ -136,6 +135,8 @@ typedef struct	s_shader
 	GLint	cmdloc;
 	GLint	smdloc;
 	GLint	tmdloc;
+	GLint	gmdloc;
+	GLint	mmdloc;
 	GLint	texloc;
 }				t_shader;
 
@@ -153,6 +154,8 @@ typedef struct	s_mod
 	short	focus;
 	short	shading;
 	short	color;
+	short	greyscale;
+	short	mapping;
 	short	texture;
 }				t_mod;
 
@@ -219,8 +222,7 @@ void			model_move_demo(t_env *env);
 /*	camera.c */
 void			camera_zoom(t_env *env);
 void			camera_move_inertia(t_env *env, float inertia, int mode);
-void			camera_recenter(t_env *env);
+void			camera_center(t_env *env);
 void			camera_look_at_target(t_env *env);
-
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 17:20:21 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/09 17:22:16 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/10 12:07:09 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		main(void)
 	t_env	env;
 
 	init(&env);
-	// parse_obj(&env, "../resources/42.obj");
+	// load_obj(&env, "../resources/42.obj");
 	load_obj(&env, "../resources/teapot2.obj");
 	load_bmp(&env, "../resources/chaton.bmp");
 	build_shader_program(&env, "../shader/vertex.glsl", "../shader/fragment.glsl");
