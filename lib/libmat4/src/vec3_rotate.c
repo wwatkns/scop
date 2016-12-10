@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/05 11:34:09 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/10 13:44:26 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/10 18:42:16 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,23 @@ t_vec3	vec3_rotate(t_vec3 v, t_vec3 axis)
 	t_vec3	tmp;
 
 	vec3_copy(&tmp, &v);
-	if (axis.z != 0.0)
+	if (axis.v[2] != 0.0)
 	{
-		axis.z *= (M_PI / 180);
-		tmp.x = v.x * cos(axis.z) - v.y * sin(axis.z);
-		tmp.y = v.x * sin(axis.z) + v.y * cos(axis.z);
+		axis.v[2] *= (M_PI / 180);
+		tmp.v[0] = v.v[0] * cos(axis.v[2]) - v.v[1] * sin(axis.v[2]);
+		tmp.v[1] = v.v[0] * sin(axis.v[2]) + v.v[1] * cos(axis.v[2]);
 	}
-	if (axis.y != 0.0)
+	if (axis.v[1] != 0.0)
 	{
-		axis.y *= (M_PI / 180);
-		tmp.x = v.x * cos(axis.y) - v.z * sin(axis.y);
-		tmp.z = v.x * sin(axis.y) + v.z * cos(axis.y);
+		axis.v[1] *= (M_PI / 180);
+		tmp.v[0] = v.v[0] * cos(axis.v[1]) - v.v[2] * sin(axis.v[1]);
+		tmp.v[2] = v.v[0] * sin(axis.v[1]) + v.v[2] * cos(axis.v[1]);
 	}
-	if (axis.x != 0.0)
+	if (axis.v[0] != 0.0)
 	{
-		axis.x *= (M_PI / 180);
-		tmp.y = v.y * cos(axis.x) - v.z * sin(axis.x);
-		tmp.z = v.y * sin(axis.x) + v.z * cos(axis.x);
+		axis.v[0] *= (M_PI / 180);
+		tmp.v[1] = v.v[1] * cos(axis.v[0]) - v.v[2] * sin(axis.v[0]);
+		tmp.v[2] = v.v[1] * sin(axis.v[0]) + v.v[2] * cos(axis.v[0]);
 	}
 	vec3_copy(&v, &tmp);
 	return (v);

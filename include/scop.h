@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 17:23:49 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/10 14:06:28 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/10 18:32:14 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@
 */
 
 # define OPENGL_VERSION "4.0"
-# define ABS(x) (x < 0 ? -x : x)
 # define BUFFER_SIZE 128
 # define COOLDOWN 20
-
 # define WINDOW_W 1440
 # define WINDOW_H 1280
 # define CAMERA_FOV 90
+# define CAMERA_NEAR 0.001
+# define CAMERA_FAR 100.0
 
 /*
 ** Camera zoom
@@ -128,6 +128,7 @@ typedef struct	s_model
 	t_vec3			inertia;
 	t_texture		texture;
 	float			velocity;
+	char			*filename;
 }				t_model;
 
 typedef struct	s_sim
@@ -196,7 +197,7 @@ void			init_glfw_env(void);
 void			init_glfw_win(t_env *env);
 void			init_matrices(t_env *env);
 void			init_cam(t_env *env);
-void			init(t_env *env);
+void			init(t_env *env, int argc, char **argv);
 
 /*
 ** callback.c
@@ -212,7 +213,7 @@ void			update_shader_uniforms(t_env *env);
 const GLchar	*get_shader_source(char *filename);
 GLuint			create_shader(char *filename, int shader_type);
 GLuint			create_shader_program(GLuint shader_vert, GLuint shader_frag);
-void			build_shader_program(t_env *env, char *v_file, char *f_file);
+void			build_shader_program(t_env *env);
 
 /*
 ** buffer.c
@@ -243,11 +244,12 @@ void			clean_glfw(t_env *env);
 int				array_len(void **tab);
 GLuint			*gluint_array_copy(GLuint *array, int length, int m);
 void			error(void);
+void			display_help(void);
 
 /*
 ** coordinate_system.c
 */
-void			set_projection_matrix(t_env *env, float fov, float near, float far);
+void			set_projection_matrix(t_env *env, float fov);
 void			compute_mvp_matrix(t_env *env);
 
 /*

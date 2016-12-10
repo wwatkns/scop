@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 14:53:46 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/10 14:06:51 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/10 18:25:19 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ const GLchar	*get_shader_source(char *filename)
 GLuint			create_shader(char *filename, int shader_type)
 {
 	GLint			success;
-	GLchar			infolog[512];
 	GLuint			shader;
 	const GLchar	*shader_source;
 
@@ -58,18 +57,13 @@ GLuint			create_shader(char *filename, int shader_type)
 	free((void*)shader_source);
 	glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
 	if (!success)
-	{
-		glGetShaderInfoLog(shader, 512, NULL, infolog);
-		printf("ERROR: shader (%s) compilation failed:\n%s", filename, infolog);
-		exit(0);
-	}
+		error();
 	return (shader);
 }
 
 GLuint			create_shader_program(GLuint shader_vert, GLuint shader_frag)
 {
 	GLint	success;
-	GLchar	infolog[512];
 	GLuint	shader_program;
 
 	shader_program = glCreateProgram();
@@ -78,24 +72,20 @@ GLuint			create_shader_program(GLuint shader_vert, GLuint shader_frag)
 	glLinkProgram(shader_program);
 	glGetProgramiv(shader_program, GL_LINK_STATUS, &success);
 	if (!success)
-	{
-		glGetProgramInfoLog(shader_program, 512, NULL, infolog);
-		printf("ERROR: shader program compilation failed:\n%s", infolog);
-		exit(0);
-	}
+		error();
 	glDeleteShader(shader_vert);
 	glDeleteShader(shader_frag);
 	return (shader_program);
 }
 
-void			build_shader_program(t_env *env, char *v_file, char *f_file)
+void			build_shader_program(t_env *env)
 {
-	GLuint	shader_vertex;
-	GLuint	shader_fragment;
+	GLuint	shader_vert;
+	GLuint	shader_frag;
 
-	shader_vertex = create_shader(v_file, GL_VERTEX_SHADER);
-	shader_fragment = create_shader(f_file, GL_FRAGMENT_SHADER);
-	env->shader.program = create_shader_program(shader_vertex, shader_fragment);
+	shader_vert = create_shader("../shader/vertex.glsl", GL_VERTEX_SHADER);
+	shader_frag = create_shader("../shader/fragment.glsl", GL_FRAGMENT_SHADER);
+	env->shader.program = create_shader_program(shader_vert, shader_frag);
 	env->shader.mvploc = glGetUniformLocation(env->shader.program, "mvp");
 	env->shader.smdloc = glGetUniformLocation(env->shader.program, "smod");
 	env->shader.cmdloc = glGetUniformLocation(env->shader.program, "cmod");

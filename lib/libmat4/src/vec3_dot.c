@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/05 10:56:01 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/08 13:03:27 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/10 18:40:58 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 float	vec3_dot(t_vec3 a, t_vec3 b)
 {
-	return (a.x * b.x + a.y * b.y + a.z * b.z);
+	return (a.v[0] * b.v[0] + a.v[1] * b.v[1] + a.v[2] * b.v[2]);
 }

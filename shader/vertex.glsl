@@ -26,10 +26,9 @@ vec2	cylinder_mapping()
 void	main()
 {
 	gl_Position = mvp * vec4(position, 1.0f);
-
 	if (cmod == 0)
 		fragment_color_s = vec4(position.y * 0.4f + 0.4f,
-		position.x * 0.1 + position.y * 0.4f + 0.1f, 0.2f, 1.0f);
+		position.z * 0.1 + position.y * 0.4f + 0.1f, 0.2f, 1.0f);
 	if (cmod == 1)
 		fragment_color_s = vec4(position * 0.4f + 0.4f, 1.0f);
 	fragment_color_f = fragment_color_s;

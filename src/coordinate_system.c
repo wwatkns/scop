@@ -6,16 +6,20 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/01 16:27:51 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/10 13:09:48 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/10 18:33:45 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
-void	set_projection_matrix(t_env *env, float fov, float near, float far)
+void	set_projection_matrix(t_env *env, float fov)
 {
 	float	s;
+	float	far;
+	float	near;
 
+	far = CAMERA_FAR;
+	near = CAMERA_NEAR;
 	s = 1 / (tan(fov * 0.5 * M_PI / 180.0));
 	mat4_set(&env->sim.projection, 0);
 	env->sim.projection.m[0] = s / env->win.ratio;

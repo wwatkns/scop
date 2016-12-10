@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/05 11:29:20 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/10 13:43:38 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/10 18:40:01 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ t_vec3	vec3_cross(t_vec3 a, t_vec3 b)
 {
 	t_vec3	tmp;
 
-	tmp.x = a.y * b.z - a.z * b.y;
-	tmp.y = a.z * b.x - a.x * b.z;
-	tmp.z = a.x * b.y - a.y * b.x;
+	tmp.v[0] = a.v[1] * b.v[2] - a.v[2] * b.v[1];
+	tmp.v[1] = a.v[2] * b.v[0] - a.v[0] * b.v[2];
+	tmp.v[2] = a.v[0] * b.v[1] - a.v[1] * b.v[0];
 	vec3_copy(&a, &tmp);
 	return (a);
 }

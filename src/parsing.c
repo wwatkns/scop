@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 16:53:07 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/10 14:07:32 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/10 18:46:37 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,12 @@ t_vec3	compute_center_axis(GLfloat *vertices, int num_vertices)
 	min = vec3(0, 0, 0);
 	while (i < num_vertices - 6)
 	{
-		vertices[i] > max.x ? max.x = vertices[i] : 0;
-		vertices[i] < min.x ? min.x = vertices[i] : 0;
-		vertices[i + 1] > max.y ? max.y = vertices[i + 1] : 0;
-		vertices[i + 1] < min.y ? min.y = vertices[i + 1] : 0;
-		vertices[i + 2] > max.z ? max.z = vertices[i + 2] : 0;
-		vertices[i + 2] < min.z ? min.z = vertices[i + 2] : 0;
+		vertices[i] > max.v[0] ? max.v[0] = vertices[i] : 0;
+		vertices[i] < min.v[0] ? min.v[0] = vertices[i] : 0;
+		vertices[i + 1] > max.v[1] ? max.v[1] = vertices[i + 1] : 0;
+		vertices[i + 1] < min.v[1] ? min.v[1] = vertices[i + 1] : 0;
+		vertices[i + 2] > max.v[2] ? max.v[2] = vertices[i + 2] : 0;
+		vertices[i + 2] < min.v[2] ? min.v[2] = vertices[i + 2] : 0;
 		i += 6;
 	}
 	center = vec3_fmul(vec3_add(max, min), 0.5);
@@ -100,9 +100,9 @@ void	center_vertices(t_env *env, int length)
 	theta = 90 * (M_PI / 180);
 	while (i < length)
 	{
-		env->model.vertices[i] -= env->model.center_axis.x;
-		env->model.vertices[i + 1] -= env->model.center_axis.y;
-		env->model.vertices[i + 2] -= env->model.center_axis.z;
+		env->model.vertices[i] -= env->model.center_axis.v[0];
+		env->model.vertices[i + 1] -= env->model.center_axis.v[1];
+		env->model.vertices[i + 2] -= env->model.center_axis.v[2];
 		tx = env->model.vertices[i] * cos(theta) -
 			env->model.vertices[i + 2] * sin(theta);
 		env->model.vertices[i + 2] = env->model.vertices[i] * sin(theta) +

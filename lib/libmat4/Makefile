@@ -6,7 +6,7 @@
 #    By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/01 16:43:17 by wwatkins          #+#    #+#              #
-#    Updated: 2016/12/08 13:16:15 by wwatkins         ###   ########.fr        #
+#    Updated: 2016/12/10 18:05:50 by wwatkins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,11 +19,10 @@ CC = gcc
 CFGLAGS = -Werror -Wextra -Wall
 
 SRC_NAME  = mat4_set.c mat4_copy.c mat4_add.c mat4_sub.c mat4_mul.c \
-			mat4_transpose.c mat4_scale.c mat4_rotate.c mat4_print.c \
+			mat4_transpose.c mat4_scale.c mat4_rotate.c \
 			vec3_add.c vec3_cross.c vec3_dot.c vec3_fmul.c \
 			vec3_magnitude.c vec3_mul.c vec3_normalize.c vec3_rotate.c \
-			vec3_scale.c vec3_set.c vec3_sub.c vec3_copy.c vec3_print.c \
-			vec.c
+			vec3_scale.c vec3_set.c vec3_sub.c vec3_copy.c vec.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 

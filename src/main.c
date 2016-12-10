@@ -6,29 +6,33 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 17:20:21 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/10 14:12:29 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/10 18:30:56 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
-int		main(void)
+void	glfw_loop(void)
+{
+	glfwPollEvents();
+	glClearColor(0.09f, 0.08f, 0.15f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+int		main(int argc, char **argv)
 {
 	t_env	env;
 
-	init(&env);
-	// load_obj(&env, "../resources/42.obj");
-	load_obj(&env, "../resources/teapot2.obj");
+	init(&env, argc, argv);
+	load_obj(&env, env.model.filename);
 	load_bmp(&env, "../resources/chaton.bmp");
-	build_shader_program(&env, "../shader/vertex.glsl", "../shader/fragment.glsl");
+	build_shader_program(&env);
 	create_buffers(&env, GL_DYNAMIC_DRAW);
 	glBindVertexArray(0);
 	glEnable(GL_DEPTH_TEST);
 	while (!glfwWindowShouldClose(env.win.ptr))
 	{
-		glfwPollEvents();
-		glClearColor(0.09f, 0.08f, 0.15f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glfw_loop();
 		key_handle(&env);
 		env.sim.model = mat4_mul(env.model.translation, env.model.rotation);
 		glUseProgram(env.shader.program);
