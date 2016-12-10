@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 17:20:21 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/10 12:07:09 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/10 12:27:17 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		main(void)
 		compute_mvp_matrix(&env);
 		update_shader_uniforms(&env);
 		glBindTexture(GL_TEXTURE_2D, env.buffer.texture);
-		glBindVertexArray(env.buffer.VAO);
+		glBindVertexArray(env.buffer.vao);
 		glDrawElements(GL_TRIANGLES, env.model.num_indices, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 		glfwSwapBuffers(env.win.ptr);

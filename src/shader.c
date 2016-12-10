@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 14:53:46 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/10 12:06:49 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/10 12:29:17 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,18 @@ const GLchar	*get_shader_source(char *filename)
 	return (source);
 }
 
-GLuint			create_shader(char *filename, int shaderType)
+GLuint			create_shader(char *filename, int shader_type)
 {
 	GLint			success;
 	GLchar			infoLog[512];
 	GLuint			shader;
-	const GLchar	*shaderSource;
+	const GLchar	*shader_source;
 
-	shaderSource = get_shader_source(filename);
-	shader = glCreateShader(shaderType);
-	glShaderSource(shader, 1, &shaderSource, NULL);
+	shader_source = get_shader_source(filename);
+	shader = glCreateShader(shader_type);
+	glShaderSource(shader, 1, &shader_source, NULL);
 	glCompileShader(shader);
-	free((void*)shaderSource);
+	free((void*)shader_source);
 	glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
 	if (!success)
 	{
@@ -99,5 +99,5 @@ void			build_shader_program(t_env *env, char *v_file, char *f_file)
 	env->shader.tmdloc = glGetUniformLocation(env->shader.program, "tmod");
 	env->shader.gmdloc = glGetUniformLocation(env->shader.program, "gmod");
 	env->shader.mmdloc = glGetUniformLocation(env->shader.program, "mmod");
-	env->shader.texloc = glGetUniformLocation(env->shader.program, "loaded_texture");
+	env->shader.texloc = glGetUniformLocation(env->shader.program, "ltexture");
 }

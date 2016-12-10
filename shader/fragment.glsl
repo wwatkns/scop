@@ -7,7 +7,7 @@ in vec2				texture_coordinates;
 uniform bool		smod;
 uniform bool		tmod;
 uniform bool		gmod;
-uniform sampler2D	loaded_texture;
+uniform sampler2D	ltexture;
 
 out vec4		color;
 
@@ -20,7 +20,7 @@ void	main()
 	else
 		color = fragment_color_f;
 	if (tmod)
-		color = texture(loaded_texture, texture_coordinates);
+		color = texture(ltexture, texture_coordinates);
 	if (gmod)
 	{
 		grey = (0.2125 * color.x + 0.7154 * color.y + 0.0721 * color.z) / 3.0f;
