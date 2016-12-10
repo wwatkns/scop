@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 13:33:55 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/10 12:05:59 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/10 13:10:00 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	init_matrices(t_env *env)
 {
 	mat4_set(&env->sim.model, IDENTITY);
 	mat4_set(&env->sim.view, IDENTITY);
-	set_projection_matrix(&env->sim.projection, env->cam.fov, env->win.ratio, 0.001f, 100.0f);
+	set_projection_matrix(env, env->cam.fov, 0.001f, 100.0f);
 	mat4_set(&env->model.rotation, IDENTITY);
 	mat4_set(&env->model.translation, IDENTITY);
 	vec3_set(&env->model.inertia, 0);

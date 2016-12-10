@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 16:53:07 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/10 12:14:34 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/10 13:22:23 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ GLuint	*append_indices(GLuint *array, char *line, int *length)
 	return (array);
 }
 
-t_vec3	compute_center_axis(GLfloat	*vertices, int num_vertices)
+t_vec3	compute_center_axis(GLfloat *vertices, int num_vertices)
 {
 	int		i;
 	t_vec3	max;
@@ -117,7 +117,7 @@ void	center_vertices(t_env *env, int length)
 	}
 }
 
-void	load_obj(t_env *env, char *filename)
+void	load_obj(t_env *e, char *filename)
 {
 	int		fd;
 	int		v;
@@ -126,22 +126,22 @@ void	load_obj(t_env *env, char *filename)
 
 	v = 0;
 	f = 0;
-	env->model.vertices = (GLfloat*)malloc(sizeof(GLfloat) * 3);
-	env->model.indices = (GLuint*)malloc(sizeof(GLuint) * 3);
+	e->model.vertices = (GLfloat*)malloc(sizeof(GLfloat) * 3);
+	e->model.indices = (GLuint*)malloc(sizeof(GLuint) * 3);
 	fd = open(filename, O_RDWR);
 	while (get_next_line(fd, &line) > 0)
 	{
 		if (line[0] == 'v' && line[1] == ' ')
-			env->model.vertices = append_vertices(env->model.vertices, line, &v);
+			e->model.vertices = append_vertices(e->model.vertices, line, &v);
 		else if (line[0] == 'f' && line[1] == ' ')
-			env->model.indices = append_indices(env->model.indices, line, &f);
+			e->model.indices = append_indices(e->model.indices, line, &f);
 		ft_strdel(&line);
 	}
 	ft_strdel(&line);
-	env->model.size_vertices = v * sizeof(GLfloat);
-	env->model.size_indices = f * sizeof(GLuint);
-	env->model.num_indices = f;
-	env->model.center_axis = compute_center_axis(env->model.vertices, v);
-	center_vertices(env, v);
-	env->model.center_axis = vec3(0, 0, 0);
+	e->model.size_vertices = v * sizeof(GLfloat);
+	e->model.size_indices = f * sizeof(GLuint);
+	e->model.num_indices = f;
+	e->model.center_axis = compute_center_axis(e->model.vertices, v);
+	center_vertices(e, v);
+	e->model.center_axis = vec3(0, 0, 0);
 }

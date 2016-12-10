@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 10:39:39 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/09 16:55:52 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/10 13:16:48 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,11 @@ void	get_image(t_texture *texture, char *buffer, int i)
 {
 	int	h;
 	int	j;
+	int	size;
 
 	h = 0;
-	texture->img = (unsigned char*)malloc(sizeof(unsigned char) * texture->size * 2);
+	size = texture->size * 2;
+	texture->img = (unsigned char*)malloc(sizeof(unsigned char) * size);
 	while (i >= 0)
 	{
 		i -= texture->sl;

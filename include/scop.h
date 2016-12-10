@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 17:23:49 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/10 12:26:40 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/10 13:22:48 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,7 +211,7 @@ void			key_toggle(t_key *key, short *var, int v0, int v1);
 void			update_shader_uniforms(t_env *env);
 const GLchar	*get_shader_source(char *filename);
 GLuint			create_shader(char *filename, int shader_type);
-GLuint			create_shader_program(GLuint shader_vertex, GLuint shader_fragment);
+GLuint			create_shader_program(GLuint shader_vert, GLuint shader_frag);
 void			build_shader_program(t_env *env, char *v_file, char *f_file);
 
 /*
@@ -227,6 +227,7 @@ void			load_obj(t_env *env, char *filename);
 GLfloat			*append_vertices(GLfloat *array, char *line, int *length);
 GLuint			*append_indices(GLuint *array, char *line, int *length);
 t_vec3			compute_center_axis(GLfloat	*vertices, int num_vertices);
+void			center_vertices(t_env *env, int length);
 
 /*
 ** texture.c
@@ -244,7 +245,7 @@ int				array_len(void **tab);
 /*
 ** coordinate_system.c
 */
-void			set_projection_matrix(t_mat4 *m, float fov, float ratio, float near, float far);
+void			set_projection_matrix(t_env *env, float fov, float near, float far);
 void			compute_mvp_matrix(t_env *env);
 
 /*

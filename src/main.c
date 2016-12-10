@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 17:20:21 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/10 12:27:17 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/10 13:25:31 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		main(void)
 	create_buffers(&env, GL_DYNAMIC_DRAW);
 	glBindVertexArray(0);
 	glEnable(GL_DEPTH_TEST);
-	while(!glfwWindowShouldClose(env.win.ptr))
+	while (!glfwWindowShouldClose(env.win.ptr))
 	{
 		glfwPollEvents();
 		glClearColor(0.09f, 0.08f, 0.15f, 1.0f);
