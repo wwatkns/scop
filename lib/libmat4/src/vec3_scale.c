@@ -6,13 +6,13 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/05 10:54:55 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/08 13:06:23 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/10 13:44:14 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmat4.h"
 
-t_vec3 	vec3_scale(t_vec3 v, float f)
+t_vec3	vec3_scale(t_vec3 v, float f)
 {
 	int	i;
 

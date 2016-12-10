@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 14:53:46 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/10 13:36:11 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/10 14:06:51 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ const GLchar	*get_shader_source(char *filename)
 
 	source = ft_strnew(BUFFER_SIZE);
 	if ((fd = open(filename, O_RDONLY)) == -1)
-		return (NULL);
+		error();
 	while ((ret = read(fd, buffer, BUFFER_SIZE)))
 	{
 		buffer[ret] = '\0';

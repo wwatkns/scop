@@ -6,16 +6,15 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/05 11:34:09 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/08 13:08:29 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/10 13:44:26 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmat4.h"
 
-// t_vec3 	vec3_rotate(t_vec3 v, float x, float y, float z)
-t_vec3 	vec3_rotate(t_vec3 v, t_vec3 axis)
+t_vec3	vec3_rotate(t_vec3 v, t_vec3 axis)
 {
-	t_vec3 	tmp;
+	t_vec3	tmp;
 
 	vec3_copy(&tmp, &v);
 	if (axis.z != 0.0)

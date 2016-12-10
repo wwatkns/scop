@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 16:53:07 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/10 13:22:23 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/10 14:07:32 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ GLfloat	*append_vertices(GLfloat *array, char *line, int *length)
 
 GLuint	*append_indices(GLuint *array, char *line, int *length)
 {
-	int		i;
 	int		j;
 	int		m;
 	char	**tab;
@@ -51,18 +50,14 @@ GLuint	*append_indices(GLuint *array, char *line, int *length)
 	tab = ft_strsplit(&line[1], ' ');
 	m = array_len((void**)tab) == 4 ? 6 : 3;
 	*length += m;
-	new = (GLuint*)malloc(sizeof(GLuint) * *length);
-	i = -1;
-	while (++i < *length - m)
-		new[i] = array[i];
-	free(array);
-	array = new;
+	array = gluint_array_copy(array, *length, m);
 	j = -1;
 	while (++j < 3)
 	{
 		array[*length - m + j] = (GLuint)ft_atoi(tab[j]) - 1;
 		if (m == 6)
-			array[*length - m + 3 + j] = (GLuint)ft_atoi(tab[j > 0 ? j + 1 : 0]) - 1;
+			array[*length - m + 3 + j] =
+			(GLuint)ft_atoi(tab[j > 0 ? j + 1 : 0]) - 1;
 		ft_strdel(&tab[j]);
 	}
 	ft_strdel(&tab[j]);
@@ -115,6 +110,7 @@ void	center_vertices(t_env *env, int length)
 		env->model.vertices[i] = tx;
 		i += 6;
 	}
+	env->model.center_axis = vec3(0, 0, 0);
 }
 
 void	load_obj(t_env *e, char *filename)
@@ -128,7 +124,8 @@ void	load_obj(t_env *e, char *filename)
 	f = 0;
 	e->model.vertices = (GLfloat*)malloc(sizeof(GLfloat) * 3);
 	e->model.indices = (GLuint*)malloc(sizeof(GLuint) * 3);
-	fd = open(filename, O_RDWR);
+	if ((fd = open(filename, O_RDWR)) == -1)
+		error();
 	while (get_next_line(fd, &line) > 0)
 	{
 		if (line[0] == 'v' && line[1] == ' ')
@@ -143,5 +140,4 @@ void	load_obj(t_env *e, char *filename)
 	e->model.num_indices = f;
 	e->model.center_axis = compute_center_axis(e->model.vertices, v);
 	center_vertices(e, v);
-	e->model.center_axis = vec3(0, 0, 0);
 }
