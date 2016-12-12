@@ -13,7 +13,7 @@ __Usage:__
 * `./scop [.obj filename]`
 
 __Example:__
-* `./scop ../resources/teapot2.obj`
+* `./scop ./resources/teapot2.obj`
 
 __Keys:__
 
