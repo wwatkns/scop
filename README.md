@@ -1,5 +1,8 @@
 # scop
 
+_This project is an introduction to OpenGL in order to display a 3D object parsed manually from a .obj file._
+_We must display the model in perspective and with a simple texture mapping technique._
+
 __Installation:__
 
 * `git clone https://github.com/wwatkins42/scop.git`
