@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 10:39:39 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/10 14:11:39 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/12 11:37:11 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	read_header(char *filename, t_texture *texture)
 	FILE	*file;
 
 	if ((file = fopen(filename, "r")) == NULL)
-		error();
+		error("bmp file opening (fopen) failed.");
 	fseek(file, 18, SEEK_SET);
 	fread(&texture->w, 4, 1, file);
 	fread(&texture->h, 4, 1, file);
@@ -64,7 +64,7 @@ void	load_bmp(t_env *env, char *filename)
 	read_header(filename, &env->model.texture);
 	buffer = (char*)malloc(sizeof(char) * env->model.texture.size + 1);
 	if ((fd = open(filename, O_RDWR)) == -1)
-		error();
+		error("bmp file opening failed.");
 	lseek(fd, 54, SEEK_SET);
 	i = read(fd, buffer, env->model.texture.size);
 	get_image(&env->model.texture, buffer, i);

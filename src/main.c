@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 17:20:21 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/10 18:30:56 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/12 11:38:18 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		main(int argc, char **argv)
 
 	init(&env, argc, argv);
 	load_obj(&env, env.model.filename);
-	load_bmp(&env, "../resources/chaton.bmp");
+	load_bmp(&env, "./resources/chaton.bmp");
 	build_shader_program(&env);
 	create_buffers(&env, GL_DYNAMIC_DRAW);
 	glBindVertexArray(0);

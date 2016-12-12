@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 16:53:07 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/12 11:19:54 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/12 11:37:31 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void	load_obj(t_env *e, char *filename)
 	e->model.vertices = (GLfloat*)malloc(sizeof(GLfloat) * 3);
 	e->model.indices = (GLuint*)malloc(sizeof(GLuint) * 3);
 	if ((fd = open(filename, O_RDWR)) == -1)
-		error();
+		error("obj file opening failed.");
 	while (get_next_line(fd, &line) > 0)
 	{
 		if (line[0] == 'v' && line[1] == ' ')

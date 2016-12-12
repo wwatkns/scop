@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/01 12:13:41 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/10 18:36:28 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/12 11:34:03 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,11 @@ GLuint	*gluint_array_copy(GLuint *array, int length, int m)
 	return (new);
 }
 
-void	error(void)
+void	error(char *info)
 {
-	ft_putstr("Error\n");
+	ft_putstr("Error: ");
+	ft_putstr(info);
+	ft_putstr("\n");
 	exit(0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 17:23:49 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/10 18:32:14 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/12 11:34:21 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,7 +243,7 @@ void			read_header(char *filename, t_texture *texture);
 void			clean_glfw(t_env *env);
 int				array_len(void **tab);
 GLuint			*gluint_array_copy(GLuint *array, int length, int m);
-void			error(void);
+void			error(char *info);
 void			display_help(void);
 
 /*

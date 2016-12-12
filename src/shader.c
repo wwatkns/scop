@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 14:53:46 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/10 18:25:19 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/12 11:40:02 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ const GLchar	*get_shader_source(char *filename)
 
 	source = ft_strnew(BUFFER_SIZE);
 	if ((fd = open(filename, O_RDONLY)) == -1)
-		error();
+		error("shader source file opening failed.");
 	while ((ret = read(fd, buffer, BUFFER_SIZE)))
 	{
 		buffer[ret] = '\0';
@@ -57,7 +57,7 @@ GLuint			create_shader(char *filename, int shader_type)
 	free((void*)shader_source);
 	glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
 	if (!success)
-		error();
+		error("shader compilation failed.");
 	return (shader);
 }
 
@@ -72,7 +72,7 @@ GLuint			create_shader_program(GLuint shader_vert, GLuint shader_frag)
 	glLinkProgram(shader_program);
 	glGetProgramiv(shader_program, GL_LINK_STATUS, &success);
 	if (!success)
-		error();
+		error("shader program compilation failed.");
 	glDeleteShader(shader_vert);
 	glDeleteShader(shader_frag);
 	return (shader_program);
@@ -83,8 +83,8 @@ void			build_shader_program(t_env *env)
 	GLuint	shader_vert;
 	GLuint	shader_frag;
 
-	shader_vert = create_shader("../shader/vertex.glsl", GL_VERTEX_SHADER);
-	shader_frag = create_shader("../shader/fragment.glsl", GL_FRAGMENT_SHADER);
+	shader_vert = create_shader("./shader/vertex.glsl", GL_VERTEX_SHADER);
+	shader_frag = create_shader("./shader/fragment.glsl", GL_FRAGMENT_SHADER);
 	env->shader.program = create_shader_program(shader_vert, shader_frag);
 	env->shader.mvploc = glGetUniformLocation(env->shader.program, "mvp");
 	env->shader.smdloc = glGetUniformLocation(env->shader.program, "smod");
