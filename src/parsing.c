@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 16:53:07 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/12/10 18:46:37 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/12/12 11:19:54 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ GLuint	*append_indices(GLuint *array, char *line, int *length)
 	int		j;
 	int		m;
 	char	**tab;
-	GLuint	*new;
 
 	tab = ft_strsplit(&line[1], ' ');
 	m = array_len((void**)tab) == 4 ? 6 : 3;
